@@ -1,0 +1,56 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    ports: ["8000:8000"]
+    environment:
+      - MOCK_LLM=false
+      - LLM_BASE_URL=${LLM_BASE_URL:-https://openrouter.ai/api/v1}
+      - LLM_API_KEY=${LLM_API_KEY}
+      - LLM_MODEL=${LLM_MODEL:-nvidia/nemotron-3-ultra-550b-a55b:free}
+      - VECTOR_STORE=qdrant
+      - QDRANT_URL=http://qdrant:6333
+      - CHROMA_URL=http://chroma:8000
+      - POSTGRES_URL=postgresql://dpdp:dpdp@postgres:5432/dpdp
+      - NEO4J_URI=bolt://neo4j:7687
+      - EMBEDDING_MODEL=sentence-transformers/all-MiniLM-L6-v2
+    # Bind-mount backend source so host edits reflect via uvicorn --reload
+    # WITHOUT rebuilding the image (deps stay in image layer).
+    volumes:
+      - ./backend:/app
+    depends_on: [qdrant, chroma, postgres, neo4j]
+  frontend:
+    build: ./frontend
+    ports: ["3000:3000"]
+    depends_on: [backend]
+    # Bind-mount source so host edits (e.g. new Dashboard page) reflect
+    # in the container's Vite dev server WITHOUT rebuilding the image.
+    # /app/node_modules is kept as an anonymous volume so host node_modules
+    # never overwrites the container's installed deps.
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000
+    command: ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports: ["6333:6333"]
+  chroma:
+    image: chromadb/chroma:latest
+    ports: ["8001:8000"]
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: dpdp
+      POSTGRES_PASSWORD: dpdp
+      POSTGRES_DB: dpdp
+    ports: ["5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+  neo4j:
+    image: neo4j:5
+    environment:
+      NEO4J_AUTH: neo4j/password
+    ports: ["7474:7474","7687:7687"]
+volumes:
+  pgdata:

@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens — plain and readable ───────────────────────────────────────
+   Built to be easy for anyone, including older readers: white page, near-black text,
+   one calm blue for actions, large type (Atkinson Hyperlegible, 18px base), high contrast,
+   and no decorative motion. `--signal` and `--saffron` are aliases of the action blue. */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 220 20% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 10%;
+    --primary: 216 90% 34%;
+    --primary-foreground: 0 0% 100%;
+    --signal: var(--primary);
+    --signal-foreground: var(--primary-foreground);
+    --saffron: var(--primary);
+    --marker: 50 100% 70%;
+    --secondary: 220 16% 95%;
+    --secondary-foreground: 220 20% 10%;
+    --muted: 220 16% 95%;
+    --muted-foreground: 220 10% 32%;
+    --accent: 216 80% 95%;
+    --accent-foreground: 216 90% 26%;
+    --destructive: 0 72% 40%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 145 63% 26%;
+    --success-foreground: 0 0% 100%;
+    --warning: 30 95% 32%;
+    --warning-foreground: 0 0% 100%;
+    --border: 220 13% 82%;
+    --input: 220 12% 62%;
+    --ring: 216 90% 40%;
+    --radius: 0.5rem;
+    --grid: 220 14% 92%;
+  }
+
+  .dark {
+    --background: 220 16% 9%;
+    --foreground: 220 14% 94%;
+    --card: 220 15% 12%;
+    --card-foreground: 220 14% 94%;
+    --popover: 220 15% 13%;
+    --popover-foreground: 220 14% 94%;
+    --primary: 213 94% 72%;
+    --primary-foreground: 220 30% 10%;
+    --marker: 48 90% 55%;
+    --secondary: 220 13% 18%;
+    --secondary-foreground: 220 14% 94%;
+    --muted: 220 13% 18%;
+    --muted-foreground: 220 10% 74%;
+    --accent: 216 40% 20%;
+    --accent-foreground: 213 94% 82%;
+    --destructive: 0 85% 70%;
+    --destructive-foreground: 220 30% 10%;
+    --success: 145 55% 58%;
+    --success-foreground: 220 30% 10%;
+    --warning: 38 92% 62%;
+    --warning-foreground: 220 30% 10%;
+    --border: 220 12% 28%;
+    --input: 220 10% 45%;
+    --ring: 213 94% 72%;
+    --grid: 220 13% 16%;
+  }
+}
+
+@layer base {
+  * { @apply border-border; }
+  html { -webkit-text-size-adjust: 100%; font-size: 112.5%; color-scheme: light; } /* 18px base */
+  html.dark { color-scheme: dark; }
+  body { @apply bg-background text-foreground font-sans antialiased; line-height: 1.6; }
+  h1, h2, h3, h4 { @apply font-bold text-foreground; line-height: 1.25; }
+  a { text-underline-offset: 3px; }
+  ::selection { background: hsl(var(--marker)); color: hsl(220 20% 10%); }
+  /* A thick, obvious focus outline for keyboard users. */
+  :focus-visible { outline: 3px solid hsl(var(--ring)); outline-offset: 2px; }
+  .tabular { font-variant-numeric: tabular-nums; }
+}
+
+@layer utilities {
+  .no-scrollbar { scrollbar-width: none; }
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+
+  /* Kept as class names so existing markup stays valid; all plain now. */
+  .font-display { font-family: "Atkinson Hyperlegible", ui-sans-serif, sans-serif; font-weight: 700; line-height: 1.2; letter-spacing: normal; text-transform: none; }
+  .kicker { font-size: 0.875rem; font-weight: 700; color: hsl(var(--muted-foreground)); }
+  .stretch, .group-stretch, .wide { }
+  .text-gradient { color: inherit; }
+  .bg-brand { background: hsl(var(--primary)); }
+  .glass { background: hsl(var(--background)); }
+  .grain::after { content: none; }
+  .bg-ruled, .bg-grid, .bg-dots { background-image: none; }
+  .stamp { border: 2px solid currentColor; border-radius: var(--radius); font-weight: 700; }
+  .wipe { }
+  .marker { background: hsl(var(--marker)); color: hsl(220 20% 10%); padding: 0 0.15em; border-radius: 3px; }
+  .strike { text-decoration: line-through; }
+  .marquee { }
+  .flow { stroke-dasharray: 6 8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+}

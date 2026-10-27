@@ -1,0 +1,23 @@
+# Secrets
+.env
+.env.*
+!.env.example
+!.env.production.example
+
+# Runtime data: accounts, saved audits, uploads, logs
+backend/storage/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# Build output and caches
+node_modules/
+dist/
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+.vercel/
+graphify-out/
+frontend/_archive/

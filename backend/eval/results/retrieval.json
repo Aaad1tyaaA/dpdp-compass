@@ -1,0 +1,496 @@
+{
+ "dataset": {
+  "hash": "28283c301fee",
+  "items": 198,
+  "by_lang": {
+   "en": 178,
+   "hi": 12,
+   "mr": 8
+  },
+  "dev": 60,
+  "test": 138,
+  "unanswerable": 16,
+  "sections_covered": 43,
+  "types": [
+   "definition",
+   "exemption",
+   "lookup",
+   "obligation",
+   "penalty",
+   "procedure",
+   "right",
+   "scenario",
+   "scope",
+   "unanswerable_ood",
+   "unanswerable_rules"
+  ],
+  "translated": 20
+ },
+ "kb": {
+  "chunks": 83,
+  "mean_chars": 770,
+  "max_chars": 1239,
+  "sections": 44,
+  "pages": 21,
+  "definitions": 28,
+  "obligations": 74,
+  "obligation_kinds": {
+   "duty": 40,
+   "power": 25,
+   "right": 5,
+   "prohibition": 4
+  },
+  "principles": 13,
+  "nodes": 246,
+  "relationships": 264,
+  "by_predicate": {
+   "DEFINED_IN": 28,
+   "MUST": 40,
+   "SERVES_PRINCIPLE": 74,
+   "MAY": 25,
+   "HAS_RIGHT": 5,
+   "MUST_NOT": 4,
+   "REFERS_TO": 81,
+   "PENALTY": 7
+  }
+ },
+ "translations": {
+  "HI01": "Who is defined as a “child” under the DPDP Act?",
+  "HI02": "Who is a data fiduciary?",
+  "HI03": "What conditions must be met for valid consent?",
+  "HI04": "Can a data principal withdraw their consent?",
+  "HI05": "In case of a personal data breach, whom must the data fiduciary notify?",
+  "HI06": "When should a data fiduciary delete personal data?",
+  "HI07": "Whose consent is required before processing a child's personal data?",
+  "HI08": "What does Section 9(3) of the DPDPA prohibit?",
+  "HI09": "What is the maximum fine for not taking appropriate security measures?",
+  "HI10": "Can a data principal appoint someone to exercise their rights?",
+  "HI11": "What is the deadline for filing an appeal against the board's order?",
+  "HI12": "Can a data principal bring their complaint directly to the Board?",
+  "MR13": "According to the DPDP Act, who is defined as a “child”?",
+  "MR14": "What does “personal data” mean?",
+  "MR15": "Can a data principal withdraw their consent?",
+  "MR16": "If personal data is breached, to whom must the data fiduciary notify?",
+  "MR17": "Whose consent is required before processing a child's personal data?",
+  "MR18": "What is the maximum penalty for violation of duties related to children?",
+  "MR19": "Should a data fiduciary maintain a grievance redressal mechanism?",
+  "MR20": "What does Section 16(1) of the DPDP Act say about transferring personal data outside India?"
+ },
+ "chunking": {
+  "n": 109,
+  "rows": [
+   {
+    "chunking": "Clause-aware, 1,200 (ours)",
+    "chunks": 83,
+    "hit1": 0.642,
+    "hit5": 0.872,
+    "r10": 0.945,
+    "mrr": 0.739,
+    "ndcg10": 0.789,
+    "ms_per_query": 21.6,
+    "chars_top5": 4057,
+    "ndcg10_ci": [
+     0.73,
+     0.846
+    ],
+    "n": 109
+   },
+   {
+    "chunking": "Clause-aware, 600",
+    "chunks": 156,
+    "hit1": 0.651,
+    "hit5": 0.872,
+    "r10": 0.927,
+    "mrr": 0.745,
+    "ndcg10": 0.789,
+    "ms_per_query": 21.6,
+    "chars_top5": 2291,
+    "ndcg10_ci": [
+     0.728,
+     0.847
+    ],
+    "n": 109
+   },
+   {
+    "chunking": "Whole sections",
+    "chunks": 46,
+    "hit1": 0.569,
+    "hit5": 0.853,
+    "r10": 0.945,
+    "mrr": 0.697,
+    "ndcg10": 0.757,
+    "ms_per_query": 20.9,
+    "chars_top5": 9659,
+    "ndcg10_ci": [
+     0.697,
+     0.814
+    ],
+    "n": 109
+   },
+   {
+    "chunking": "Fixed windows, 1,200",
+    "chunks": 61,
+    "hit1": 0.523,
+    "hit5": 0.835,
+    "r10": 0.917,
+    "mrr": 0.65,
+    "ndcg10": 0.707,
+    "ms_per_query": 21.1,
+    "chars_top5": 5939,
+    "ndcg10_ci": [
+     0.642,
+     0.768
+    ],
+    "n": 109
+   },
+   {
+    "chunking": "Fixed windows, 600",
+    "chunks": 121,
+    "hit1": 0.541,
+    "hit5": 0.844,
+    "r10": 0.899,
+    "mrr": 0.652,
+    "ndcg10": 0.704,
+    "ms_per_query": 20.9,
+    "chars_top5": 2976,
+    "ndcg10_ci": [
+     0.637,
+     0.766
+    ],
+    "n": 109
+   },
+   {
+    "chunking": "Fixed windows, 300",
+    "chunks": 244,
+    "hit1": 0.385,
+    "hit5": 0.725,
+    "r10": 0.807,
+    "mrr": 0.525,
+    "ndcg10": 0.587,
+    "ms_per_query": 21.9,
+    "chars_top5": 1480,
+    "ndcg10_ci": [
+     0.518,
+     0.656
+    ],
+    "n": 109
+   }
+  ],
+  "p_mrr_ours_vs_fixed1200": 0.012,
+  "p_mrr_ours_vs_sections": 0.1438
+ },
+ "fusion": {
+  "n": 58,
+  "grid": [
+   {
+    "metadata": 0.0,
+    "graph": 0.0,
+    "ndcg10": 0.868,
+    "mrr": 0.832,
+    "hit5": 0.914
+   },
+   {
+    "metadata": 0.0,
+    "graph": 0.1,
+    "ndcg10": 0.834,
+    "mrr": 0.789,
+    "hit5": 0.948
+   },
+   {
+    "metadata": 0.0,
+    "graph": 0.25,
+    "ndcg10": 0.8,
+    "mrr": 0.744,
+    "hit5": 0.931
+   },
+   {
+    "metadata": 0.0,
+    "graph": 0.5,
+    "ndcg10": 0.735,
+    "mrr": 0.66,
+    "hit5": 0.879
+   },
+   {
+    "metadata": 0.0,
+    "graph": 1.0,
+    "ndcg10": 0.703,
+    "mrr": 0.63,
+    "hit5": 0.845
+   },
+   {
+    "metadata": 1.0,
+    "graph": 0.0,
+    "ndcg10": 0.87,
+    "mrr": 0.835,
+    "hit5": 0.914
+   },
+   {
+    "metadata": 1.0,
+    "graph": 0.1,
+    "ndcg10": 0.834,
+    "mrr": 0.789,
+    "hit5": 0.948
+   },
+   {
+    "metadata": 1.0,
+    "graph": 0.25,
+    "ndcg10": 0.8,
+    "mrr": 0.744,
+    "hit5": 0.931
+   },
+   {
+    "metadata": 1.0,
+    "graph": 0.5,
+    "ndcg10": 0.748,
+    "mrr": 0.677,
+    "hit5": 0.879
+   },
+   {
+    "metadata": 1.0,
+    "graph": 1.0,
+    "ndcg10": 0.73,
+    "mrr": 0.666,
+    "hit5": 0.845
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.0,
+    "ndcg10": 0.87,
+    "mrr": 0.835,
+    "hit5": 0.914
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.1,
+    "ndcg10": 0.834,
+    "mrr": 0.789,
+    "hit5": 0.948
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.25,
+    "ndcg10": 0.8,
+    "mrr": 0.744,
+    "hit5": 0.931
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.5,
+    "ndcg10": 0.748,
+    "mrr": 0.677,
+    "hit5": 0.879
+   },
+   {
+    "metadata": 2.0,
+    "graph": 1.0,
+    "ndcg10": 0.73,
+    "mrr": 0.666,
+    "hit5": 0.845
+   }
+  ],
+  "chosen": {
+   "metadata": 1.0,
+   "graph": 0.0,
+   "ndcg10": 0.87,
+   "mrr": 0.835,
+   "hit5": 0.914
+  },
+  "graph_sweep_at_metadata_2": [
+   {
+    "metadata": 2.0,
+    "graph": 0.0,
+    "ndcg10": 0.87,
+    "mrr": 0.835,
+    "hit5": 0.914
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.1,
+    "ndcg10": 0.834,
+    "mrr": 0.789,
+    "hit5": 0.948
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.25,
+    "ndcg10": 0.8,
+    "mrr": 0.744,
+    "hit5": 0.931
+   },
+   {
+    "metadata": 2.0,
+    "graph": 0.5,
+    "ndcg10": 0.748,
+    "mrr": 0.677,
+    "hit5": 0.879
+   },
+   {
+    "metadata": 2.0,
+    "graph": 1.0,
+    "ndcg10": 0.73,
+    "mrr": 0.666,
+    "hit5": 0.845
+   }
+  ]
+ },
+ "retrieval": {
+  "n": 124,
+  "by_lang": {
+   "en": 109,
+   "hi": 9,
+   "mr": 6
+  },
+  "rows": [
+   {
+    "system": "Dense (MiniLM)",
+    "hit1": 0.548,
+    "hit5": 0.855,
+    "r10": 0.903,
+    "mrr": 0.667,
+    "ndcg10": 0.725,
+    "ms_per_query": 20.3,
+    "chars_top5": 4024,
+    "ndcg10_ci": [
+     0.664,
+     0.785
+    ],
+    "n": 124
+   },
+   {
+    "system": "Sparse (BM25+)",
+    "hit1": 0.645,
+    "hit5": 0.831,
+    "r10": 0.903,
+    "mrr": 0.725,
+    "ndcg10": 0.768,
+    "ms_per_query": 0.2,
+    "chars_top5": 4272,
+    "ndcg10_ci": [
+     0.706,
+     0.826
+    ],
+    "n": 124
+   },
+   {
+    "system": "Graph",
+    "hit1": 0.266,
+    "hit5": 0.435,
+    "r10": 0.452,
+    "mrr": 0.341,
+    "ndcg10": 0.369,
+    "ms_per_query": 0.1,
+    "chars_top5": 2723,
+    "ndcg10_ci": [
+     0.295,
+     0.447
+    ],
+    "n": 124
+   },
+   {
+    "system": "Dense + sparse, weighted",
+    "hit1": 0.702,
+    "hit5": 0.879,
+    "r10": 0.944,
+    "mrr": 0.779,
+    "ndcg10": 0.819,
+    "ms_per_query": 20.1,
+    "chars_top5": 4118,
+    "ndcg10_ci": [
+     0.764,
+     0.87
+    ],
+    "n": 124
+   },
+   {
+    "system": "Dense + sparse, RRF",
+    "hit1": 0.621,
+    "hit5": 0.863,
+    "r10": 0.944,
+    "mrr": 0.721,
+    "ndcg10": 0.775,
+    "ms_per_query": 21.1,
+    "chars_top5": 4122,
+    "ndcg10_ci": [
+     0.718,
+     0.828
+    ],
+    "n": 124
+   },
+   {
+    "system": " + graph, equal vote",
+    "hit1": 0.492,
+    "hit5": 0.815,
+    "r10": 0.96,
+    "mrr": 0.623,
+    "ndcg10": 0.702,
+    "ms_per_query": 19.8,
+    "chars_top5": 4325,
+    "ndcg10_ci": [
+     0.646,
+     0.758
+    ],
+    "n": 124
+   },
+   {
+    "system": " + metadata lookup",
+    "hit1": 0.653,
+    "hit5": 0.887,
+    "r10": 0.976,
+    "mrr": 0.752,
+    "ndcg10": 0.805,
+    "ms_per_query": 21.5,
+    "chars_top5": 4122,
+    "ndcg10_ci": [
+     0.754,
+     0.854
+    ],
+    "n": 124
+   },
+   {
+    "system": " + re-ranking (full)",
+    "hit1": 0.79,
+    "hit5": 0.96,
+    "r10": 1.0,
+    "mrr": 0.865,
+    "ndcg10": 0.898,
+    "ms_per_query": 635.1,
+    "chars_top5": 4074,
+    "ndcg10_ci": [
+     0.86,
+     0.933
+    ],
+    "n": 124
+   },
+   {
+    "system": "Dense + re-ranking",
+    "hit1": 0.758,
+    "hit5": 0.911,
+    "r10": 0.952,
+    "mrr": 0.828,
+    "ndcg10": 0.858,
+    "ms_per_query": 694.4,
+    "chars_top5": 3974,
+    "ndcg10_ci": [
+     0.807,
+     0.904
+    ],
+    "n": 124
+   }
+  ],
+  "weights": {
+   "dense": 1.0,
+   "sparse": 1.0,
+   "metadata": 1.0,
+   "graph": 0.0
+  },
+  "p_full_vs_dense": {
+   "hit1": 0.0001,
+   "ndcg10": 0.0001
+  },
+  "p_full_vs_rrf": {
+   "hit1": 0.0001,
+   "ndcg10": 0.0001
+  },
+  "p_graph_vote_vs_rrf_ndcg10": 0.0078
+ }
+}

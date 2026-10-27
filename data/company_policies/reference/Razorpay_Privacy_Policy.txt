@@ -1,0 +1,28 @@
+# Razorpay Privacy Policy (Reference Tech Corpus — Payment Gateway & B2B Financial SaaS)
+Entity: Razorpay Software Private Limited | Sector: B2B Payment Aggregation, Payroll & Banking API | Last Updated: 2026
+
+1. Scope of Data Collection
+Razorpay acts as a Data Fiduciary and Data Processor depending on the service tier:
+- Merchant Business & Promoter Info: Certificate of incorporation, GSTIN, promoter PAN, bank account verification, business address, and website URL.
+- End-Consumer Checkout Data: Cardholder name, tokenized card network cryptograms, billing postal address, phone number, email ID, and browser fingerprinting for 3DS2 authentication.
+- API Usage & System Logs: Webhook events, API key request signatures, TLS handshake telemetry, and error response traces.
+
+2. Purposes of Data Processing
+- Payment Authorization & Settlement: Relaying payment authorizations to acquiring banks, UPI rails, and card schemes.
+- Chargeback & Dispute Management: Validating proof of delivery and payment receipts in banking dispute arbitration.
+- Risk Scoring & Chargeback Prevention: Real-time fraud scoring (Thirdwatch) evaluating transaction velocity and suspicious card testing.
+- Tax and Regulatory Reporting: Compliance with RBI Master Directions on Payment Aggregators and Payment Gateways (PAMD).
+
+3. Data Sharing and Disclosure
+- Banking Partners & Card Schemes: Transmitting encrypted payment payloads to sponsor banks, NPCI, Visa, Mastercard, and American Express.
+- Merchant Platforms: Returning transaction settlement status, payment IDs, and masked customer identifiers.
+- Judicial & Regulatory Authorities: Providing transaction audit trails to RBI, CERT-In, and investigative agencies under lawful process.
+
+4. Data Retention and Security Architecture
+- PCI-DSS v4.0 Level 1 compliant storage environment with Hardware Security Modules (HSMs) for key management.
+- Transaction data retained for ten (10) years in compliance with the Payment and Settlement Systems Act, 2007.
+- Temporary session and checkout cache tokens purged within 48 hours post-transaction completion.
+
+5. Data Subject Rights & Grievance Contact
+- End customers may contact merchants or Razorpay for payment status verification and consent revocation.
+- Data Protection Officer: dpo@razorpay.com | Grievance Officer: grievance-officer@razorpay.com | Location: Bengaluru, Karnataka, India.

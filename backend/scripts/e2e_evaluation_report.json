@@ -1,0 +1,156 @@
+{
+  "evaluated_at": "2026-09-15T06:05:52.372414Z",
+  "engine": "DPDP Act 2023 Cosine Similarity + Gap Analysis",
+  "pipeline": "extract -> clause_chunk -> embed (384d) -> cosine -> classify",
+  "results": {
+    "compliant_synthetic": {
+      "filename": "compliant_policy.txt",
+      "alignment_score": 100,
+      "trust_score": 95,
+      "summary_counts": {
+        "total_statutory_obligations": 11,
+        "satisfied": 11,
+        "partial": 0,
+        "missing": 0
+      },
+      "gaps": 0,
+      "duration_ms": 21255
+    },
+    "non_compliant_synthetic": {
+      "filename": "non_compliant_policy.txt",
+      "alignment_score": 4,
+      "trust_score": 25,
+      "summary_counts": {
+        "total_statutory_obligations": 11,
+        "satisfied": 0,
+        "partial": 1,
+        "missing": 10
+      },
+      "gaps": 11,
+      "duration_ms": 293
+    },
+    "dpdp_act_self_check": {
+      "filename": "DPDP_Act_2023.pdf",
+      "alignment_score": 86,
+      "trust_score": 82,
+      "pages": 21,
+      "clauses": 55,
+      "summary_counts": {
+        "total_statutory_obligations": 11,
+        "satisfied": 9,
+        "partial": 1,
+        "missing": 1
+      },
+      "duration_ms": 4278
+    },
+    "zomato_reference": {
+      "filename": "Zomato_Privacy_Policy.txt",
+      "alignment_score": 45,
+      "trust_score": 45,
+      "summary_counts": {
+        "total_statutory_obligations": 11,
+        "satisfied": 5,
+        "partial": 0,
+        "missing": 6
+      },
+      "gaps": 6
+    },
+    "obligation_matrix_sample": [
+      {
+        "obligation_id": "dpdp_notice",
+        "section": "Section 5 & 6",
+        "title": "Clear Pre-Consent Notice",
+        "status": "SATISFIED",
+        "similarity": 0.635,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_consent",
+        "section": "Section 6(1) & 6(2)",
+        "title": "Free, Specific, Informed & Unconditional Consent",
+        "status": "SATISFIED",
+        "similarity": 0.8158,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_withdrawal",
+        "section": "Section 6(4)",
+        "title": "Ease of Consent Withdrawal",
+        "status": "SATISFIED",
+        "similarity": 0.7852,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_security",
+        "section": "Section 8(5)",
+        "title": "Reasonable Security Safeguards",
+        "status": "SATISFIED",
+        "similarity": 0.6026,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_breach_notice",
+        "section": "Section 8(6) & Rule 10",
+        "title": "Mandatory 72-Hour Personal Data Breach Notification",
+        "status": "SATISFIED",
+        "similarity": 0.7144,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_retention_erasure",
+        "section": "Section 8(7)",
+        "title": "Retention Limitation & Purpose Erasure",
+        "status": "SATISFIED",
+        "similarity": 0.7286,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_children",
+        "section": "Section 9(1) & 9(3)",
+        "title": "Children's Data Protection & Parental Consent",
+        "status": "SATISFIED",
+        "similarity": 0.7511,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_access_info",
+        "section": "Section 11",
+        "title": "Right to Access Summary & Third-Party Sharing Details",
+        "status": "SATISFIED",
+        "similarity": 0.4844,
+        "criticality": "MEDIUM"
+      },
+      {
+        "obligation_id": "dpdp_correction",
+        "section": "Section 12",
+        "title": "Right to Correction, Completion & Updating",
+        "status": "SATISFIED",
+        "similarity": 0.4601,
+        "criticality": "MEDIUM"
+      },
+      {
+        "obligation_id": "dpdp_grievance",
+        "section": "Section 13 & 8",
+        "title": "Accessible Grievance Redressal & DPO",
+        "status": "SATISFIED",
+        "similarity": 0.7116,
+        "criticality": "HIGH"
+      },
+      {
+        "obligation_id": "dpdp_nomination",
+        "section": "Section 14",
+        "title": "Right to Nominate",
+        "status": "SATISFIED",
+        "similarity": 0.4495,
+        "criticality": "LOW"
+      }
+    ]
+  },
+  "summary": {
+    "tests_run": 5,
+    "compliant_alignment": 100,
+    "non_compliant_alignment": 4,
+    "dpdp_act_self_check": 86,
+    "zomato_reference": 45
+  }
+}

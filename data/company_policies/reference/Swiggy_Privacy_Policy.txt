@@ -1,0 +1,31 @@
+# Swiggy Privacy Policy (Reference Tech Corpus — Food Delivery & Quick Commerce)
+Entity: Bundl Technologies Private Limited (Swiggy / Instamart / Dineout) | Sector: Food Tech & Quick Commerce | Last Updated: 2026
+
+1. Notice and Scope of Personal Data Collected
+We collect personal data required to deliver food, groceries, and dining reservations:
+- Account Credentials: Full name, verified mobile number, verified email address, and profile avatars.
+- Location Information: Device background and foreground GPS location data to present nearby dark stores, estimate 10-minute delivery ETAs, and enable rider navigation.
+- Financial & Payment Metadata: Saved payment instrument tokens (tokenized card credentials), UPI virtual payment addresses, Swiggy Money wallet balance, and cashback history.
+- Device Diagnostics: Android/iOS OS versions, battery level (for app optimization), crash telemetry, and advertising identifiers (IDFA/GAID).
+
+2. Processing Purposes
+- Order Dispatch & Logistics: Matching Instamart pods and delivery executives to optimize delivery routes.
+- Loyalty & Subscriptions: Managing Swiggy One membership privileges, delivery waivers, and member-only discounts.
+- Platform Security & Loss Prevention: Preventing coupon abuse, synthetic accounts, and rider geo-spoofing.
+- Marketing & Communication: Transactional SMS, WhatsApp order updates, and promotional push notifications (subject to opt-out).
+
+3. Third-Party Data Sharing
+- Merchant Partners & Dark Stores: Sharing order items, customer initials, and delivery instructions.
+- Fleet Delivery Partners: Real-time masked calling and delivery pin routing.
+- Authorized Processors: SMS aggregators, payment gateways, and cloud data centers within Indian jurisdiction.
+- Compliance Disclosures: Statutory compliance with Goods and Services Tax (GST) authorities and Indian judicial bodies.
+
+4. Data Retention, Minimization & Deletion
+We retain personal data only for the duration required to achieve delivery operations and statutory record-keeping obligations. Inactive accounts with no open orders or financial disputes may request data erasure. Account erasure takes effect within 30 days of verification.
+
+5. Technical Safeguards & Breach Management
+All sensitive transmissions utilize encrypted HTTPS/TLS channels. We maintain an incident response protocol to notify the Data Protection Board of India and affected users in case of a personal data breach impacting confidentiality or integrity.
+
+6. Data Principal Rights & Contact
+Data principals may exercise rights to access, correction, erasure, and consent withdrawal via the Swiggy Help Centre.
+- Grievance Redressal Officer: nodal.officer@swiggy.in | Location: Bangalore, Karnataka, India.

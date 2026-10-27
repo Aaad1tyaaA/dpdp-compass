@@ -1,0 +1,105 @@
+{
+ "model": "openai/gpt-oss-120b",
+ "judge": "qwen/qwen3.8-27b",
+ "complete": true,
+ "stopped": null,
+ "n_test": 138,
+ "n_done": 138,
+ "systems": {
+  "LLM, no retrieval": {
+   "n_answerable": 124,
+   "n_unanswerable": 14,
+   "correct_strict": 0.121,
+   "correct_partial_credit": 0.367,
+   "correct_ci": [
+    0.31,
+    0.427
+   ],
+   "citation_precision": 0.064,
+   "citation_recall": 0.089,
+   "fabricated_citation_rate": 0.0,
+   "outside_evidence_rate": null,
+   "unsupported_claims_per_answer": 2.73,
+   "abstention_unanswerable": 0.571,
+   "false_abstention": 0.04,
+   "seconds": 0.03,
+   "tokens": 318,
+   "calls": 1.0
+  },
+  "Dense RAG": {
+   "n_answerable": 124,
+   "n_unanswerable": 14,
+   "correct_strict": 0.823,
+   "correct_partial_credit": 0.851,
+   "correct_ci": [
+    0.79,
+    0.907
+   ],
+   "citation_precision": 0.706,
+   "citation_recall": 0.855,
+   "fabricated_citation_rate": 0.0,
+   "outside_evidence_rate": 0.051,
+   "unsupported_claims_per_answer": 0.35,
+   "abstention_unanswerable": 0.929,
+   "false_abstention": 0.105,
+   "seconds": 0.05,
+   "tokens": 1240,
+   "calls": 1.11
+  },
+  "Hybrid RAG": {
+   "n_answerable": 124,
+   "n_unanswerable": 14,
+   "correct_strict": 0.798,
+   "correct_partial_credit": 0.851,
+   "correct_ci": [
+    0.79,
+    0.903
+   ],
+   "citation_precision": 0.661,
+   "citation_recall": 0.847,
+   "fabricated_citation_rate": 0.0,
+   "outside_evidence_rate": 0.043,
+   "unsupported_claims_per_answer": 0.48,
+   "abstention_unanswerable": 0.786,
+   "false_abstention": 0.081,
+   "seconds": 0.05,
+   "tokens": 1267,
+   "calls": 1.11
+  },
+  "Full system": {
+   "n_answerable": 124,
+   "n_unanswerable": 14,
+   "correct_strict": 0.887,
+   "correct_partial_credit": 0.935,
+   "correct_ci": [
+    0.899,
+    0.968
+   ],
+   "citation_precision": 0.705,
+   "citation_recall": 0.952,
+   "fabricated_citation_rate": 0.0,
+   "outside_evidence_rate": 0.029,
+   "unsupported_claims_per_answer": 0.37,
+   "abstention_unanswerable": 0.786,
+   "false_abstention": 0.016,
+   "seconds": 0.79,
+   "tokens": 1297,
+   "calls": 1.14
+  }
+ },
+ "p_full_vs": {
+  "LLM, no retrieval": 0.0001,
+  "Dense RAG": 0.0044,
+  "Hybrid RAG": 0.0066
+ },
+ "by_lang_full": {
+  "en": 0.931,
+  "hi": 0.944,
+  "mr": 1.0
+ },
+ "guardrail_flags": {
+  "rewrite_requested": 4,
+  "citation_removed": 0,
+  "citation_outside_evidence": 4
+ }
+}

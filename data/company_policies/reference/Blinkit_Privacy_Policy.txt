@@ -1,0 +1,31 @@
+# Blinkit Privacy Policy (Reference Tech Corpus — Quick Commerce & Grocery E-Commerce)
+Entity: Blink Commerce Private Limited (Blinkit, a Zomato Group Company) | Sector: 10-Minute Grocery Logistics | Last Updated: 2026
+
+1. Category of Personal Information Collected
+Blinkit collects information necessary to execute quick grocery, electronics, and home needs fulfillment:
+- Identification Data: Mobile phone number (verified via SMS OTP), name, and email ID.
+- Physical Location Data: Continuous foreground location data to determine store feasibility, real-time rider tracking, and ETA estimations.
+- Order & Basket Metadata: SKUs purchased, brand preferences, replacement preferences, total bill amount, and delivery tip.
+- Device Identifiers: Android Advertising ID / IDFA, IP address, device model, operating system, and push notification tokens.
+
+2. Utilization of Data
+- Instantaneous Warehouse Picking & Delivery: Assigning orders to nearest micro-warehouses and dispatching fleet riders.
+- Order Queries & Resolution: Processing refund requests, returns for damaged products, and customer chat tickets.
+- Fraud & Promo Misuse Prevention: Flagging multi-accounting, referral fraud, and fake delivery claims.
+- Marketing & Dynamic Offers: Sending personalized replenishment notifications and discount alerts.
+
+3. Sharing and Disclosures
+- Parent Company & Group Entities: Shared with Zomato Limited for integrated loyalty, cross-service benefits (e.g., Zomato Gold), and unified security monitoring.
+- Delivery Partners: Order manifest, customer delivery address, and temporary masked contact number.
+- Payment Intermediaries: Secure transmission of billing total to RBI-authorized payment processors.
+- Law Enforcement: Compliance with legal notices, judicial orders, and Indian cybercrime requisitions.
+
+4. Data Retention and Erasure Policy
+Data is retained as long as the account remains active and as required by GST, income tax, and e-commerce compliance rules. Upon an account deletion request through the app interface, customer identifiers are purged from operational databases within 30 days.
+
+5. Security Architecture
+All data traffic is encrypted with TLS 1.3. Databases are encrypted at rest with AES-256. Strict access control lists and multi-factor authentication are mandatory for all production systems.
+
+6. Rights of Data Principals & Grievance Contact
+In compliance with the DPDP Act 2023, data principals have rights of access, correction, erasure, and grievance redressal.
+- Grievance Officer: grievance.officer@blinkit.com | Address: Blink Commerce Pvt Ltd, Gurugram, Haryana, India.

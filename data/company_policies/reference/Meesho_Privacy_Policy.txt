@@ -1,0 +1,29 @@
+# Meesho Privacy Policy (Reference Tech Corpus — Social Commerce & Reseller Platform)
+Entity: Fashnear Technologies Private Limited (Meesho) | Sector: Social Commerce, Reselling & E-Commerce | Last Updated: 2026
+
+1. Information Collected from Users & Resellers
+- User Profile: Full name, mobile number, shipping address, email ID, and language preferences.
+- Reseller Business Details: Bank account details for margin payouts, GSTIN, business display name, and referral networks.
+- Contact Book Data: Uploaded optionally with explicit consent to help resellers share product catalogs via WhatsApp.
+- Order & Browsing History: Items added to cart, shared catalogs, delivery status, and returns history.
+
+2. Grounds & Purpose of Processing
+- Connecting buyers, suppliers, and third-party logistics partners to complete cash-on-delivery (COD) and prepaid shipments.
+- Facilitating reseller commission settlements and UPI bank transfers.
+- Fraud prevention, detecting fake order placements, and monitoring delivery OTP confirmations.
+- Regulatory compliance with Consumer Protection (Direct Selling) Rules and Indian taxation laws.
+
+3. Sharing with Third Parties
+- Third-Party Logistics (3PL) Couriers (Shadowfax, Delhivery, Xpressbees) for shipment delivery.
+- Suppliers: Order SKU details, delivery address, and recipient contact for packaging.
+- Payment Intermediaries: For processing online payments and reseller payout transfers.
+- Government & Regulatory Authorities upon formal notice.
+
+4. Data Retention and Erasure
+Data is stored securely during active platform usage. Tax-related invoices are retained for mandatory statutory periods (up to 7 years). Users can request account deactivation and personal data deletion via in-app support or email.
+
+5. Security Controls & DPDP Compliance
+We employ AES-256 data encryption, role-based access restrictions, and strict vendor confidentiality agreements.
+
+6. Grievance Redressal
+- Grievance Officer: grievance@meesho.com | Location: Bengaluru, Karnataka, India.

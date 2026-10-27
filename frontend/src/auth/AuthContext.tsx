@@ -1,0 +1,78 @@
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react"
+import { API_BASE } from "@/services/api"
+import { clearSavedState, loadSavedState } from "@/hooks/usePersistentState"
+
+export interface User { id: string; email: string; name: string }
+
+interface AuthValue {
+  user: User | null
+  /** True until the first check of the session cookie has finished. */
+  loading: boolean
+  signIn: (email: string, password: string) => Promise<void>
+  signUp: (name: string, email: string, password: string) => Promise<void>
+  signOut: () => Promise<void>
+  /** Re-read the profile after it changes (for example the display name). */
+  refresh: () => Promise<void>
+}
+
+const Ctx = createContext<AuthValue | null>(null)
+
+/** JSON request to the API; throws an Error carrying the server's message. */
+export async function api<T = unknown>(path: string, init?: RequestInit & { json?: unknown }): Promise<T> {
+  const { json, ...rest } = init ?? {}
+  const res = await fetch(`${API_BASE}${path}`, {
+    credentials: "include",
+    ...rest,
+    ...(json !== undefined ? { method: rest.method ?? "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(json) } : {}),
+  })
+  const body = await res.json().catch(() => ({}))
+  if (!res.ok) {
+    const detail = (body as { detail?: unknown }).detail
+    const first = Array.isArray(detail) ? (detail[0] as { msg?: string; loc?: string[] }) : null
+    // Validation errors arrive as a list; turn the first into a sentence a person can act on.
+    const message = typeof detail === "string" ? detail
+      : first?.loc?.includes("password") ? "Use a password of at least 8 characters."
+      : first?.msg ?? "Something went wrong. Please try again."
+    throw new Error(message.charAt(0).toUpperCase() + message.slice(1))
+  }
+  return body as T
+}
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  const adopt = useCallback(async (u: User | null) => {
+    if (u) await loadSavedState(u.id)  // bring the account's saved work into this browser before the app renders
+    else clearSavedState()             // never leave one person's work on screen for the next
+    setUser(u)
+  }, [])
+
+  const refresh = useCallback(async () => {
+    try {
+      const { user: u } = await api<{ user: User | null }>("/api/auth/me")
+      await adopt(u)
+    } catch {
+      setUser(null)  // backend unreachable: treat as signed out; the sign-in page reports the error on submit
+    } finally {
+      setLoading(false)
+    }
+  }, [adopt])
+
+  useEffect(() => { void refresh() }, [refresh])
+
+  const value = useMemo<AuthValue>(() => ({
+    user, loading, refresh,
+    signIn: async (email, password) => adopt(await api<User>("/api/auth/login", { json: { email, password } })),
+    signUp: async (name, email, password) => adopt(await api<User>("/api/auth/signup", { json: { name, email, password } })),
+    signOut: async () => { await api("/api/auth/logout", { method: "POST" }).catch(() => undefined); await adopt(null) },
+  }), [user, loading, refresh, adopt])
+
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>
+}
+
+export function useAuth(): AuthValue {
+  const v = useContext(Ctx)
+  if (!v) throw new Error("useAuth must be used inside <AuthProvider>")
+  return v
+}

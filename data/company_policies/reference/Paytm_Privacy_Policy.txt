@@ -1,0 +1,32 @@
+# Paytm Privacy Policy (Reference Tech Corpus — Fintech, Payments & Lending)
+Entity: One97 Communications Limited (Paytm) | Sector: Financial Technology, Payments & Credit Distribution | Last Updated: 2026
+
+1. Collection of Personal and Financial Information
+Paytm collects information necessary to execute financial services, KYC verification, and merchant settlements:
+- KYC Identifiers: PAN (Permanent Account Number), Aadhaar verification metadata (via UIDAI offline XML / masked number), government identity documents, date of birth, and father's/spouse's name.
+- Financial & Banking Data: Linked bank account numbers, IFSC codes, UPI handles, transaction ledger entries, credit score reports (from CICs with explicit consent), and loan repayment status.
+- Device & Security Telemetry: SIM card binding status, device IMEI / UUID, approximate IP geolocation, Wi-Fi SSID, and installed financial app signatures to prevent UPI skimming and trojan malware.
+- Communication Logs: OTP delivery logs, customer care dispute tickets, and chat assistant history.
+
+2. Grounds for Processing
+- Execution of Regulated Payments: Processing wallet transfers, FASTag recharges, Soundbox audio settlements, and UPI P2P/P2M transfers under RBI guidelines.
+- Credit Appraisal & Co-Lending: Facilitating loan origination through regulated NBFC/bank lending partners upon customer's specific consent.
+- Anti-Money Laundering (AML) & Fraud Mitigation: Screening against FIU-IND sanction lists, anomaly detection for high-value suspicious transactions.
+- Regulatory Compliance: Mandated retention under the Prevention of Money Laundering Act (PMLA) and RBI Master Directions on KYC.
+
+3. Third-Party Sharing and Disclosures
+- Regulated Banking Partners & Payment Networks: NPCI (National Payments Corporation of India), sponsor banks, and card networks (RuPay, Visa, Mastercard).
+- Credit Information Companies (CICs): CIBIL, Experian, CRIF High Mark for credit score fetching and repayment reporting.
+- Co-lending NBFCs: Disclosing loan applicant profiles with affirmative consent.
+- Statutory & Law Enforcement Agencies: CERT-In, Enforcement Directorate, GST Intelligence, and law enforcement upon valid legal request.
+
+4. Data Retention and Archival
+In accordance with PMLA Rule 3 and RBI directives, KYC documents, account opening records, and financial transaction records are securely retained for a minimum mandatory period of five (5) years following the termination of customer relationship. Non-financial behavioral tracking data is erased within 180 days upon verified account deactivation.
+
+5. Information Security Controls
+Paytm operates ISO 27001:2013 and PCI-DSS Level 1 certified data centers in India. End-to-end encryption is enforced for all payment payloads. Access to sensitive data is governed by zero-trust architecture and automated audit logging.
+
+6. Rights of Data Principals & Grievance Mechanism
+Users may view their transaction statements, correct contact details via profile settings, and raise dispute claims.
+- Grievance Redressal Officer: nodalofficer@paytm.com | Address: One97 Communications Ltd, Noida, Uttar Pradesh, India.
+- Escalation: In case of unaddressed grievances within 30 days, customers may escalate to the Reserve Bank Ombudsman and the Data Protection Board of India.

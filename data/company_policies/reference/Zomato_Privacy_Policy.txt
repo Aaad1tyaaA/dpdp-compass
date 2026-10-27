@@ -1,0 +1,38 @@
+# Zomato Privacy Policy (Reference Tech Corpus — Food Delivery & Hyperlocal Services)
+Entity: Zomato Limited | Sector: Food Delivery, Dining & Hyperlocal Logistics | Last Updated: 2026
+
+1. Information We Collect
+We collect personal information that you provide directly to us when using our platform:
+- Identity & Contact Data: Name, mobile telephone number, email address, and delivery addresses.
+- Geolocation Data: Real-time device precise GPS coordinates to facilitate food delivery, calculate delivery fees, track delivery partners, and verify merchant proximity.
+- Transaction & Order Information: Items ordered, restaurant preferences, dietary selections, payment confirmation tokens, invoice details, and tipping data.
+- Device & Log Data: IP address, device hardware model, operating system, browser type, unique device identifiers, and mobile network information.
+- Audio & Communications: Call recordings and chat logs between customer support, delivery partners, and consumers for order resolution, safety, and training.
+
+2. Purpose and Legal Basis for Processing
+We process personal data for specific and legitimate commercial purposes:
+- Order Fulfilment: Connecting consumers with restaurants and assigning independent delivery partners for doorstep delivery.
+- Customer Support: Resolving delivery delays, wrong item disputes, refunds, and order cancellations.
+- Fraud Detection & Safety: Detecting unauthorized account access, payment fraud, and fake user reviews.
+- Personalized Recommendations: Displaying curated cuisines, trending restaurants, and discounts based on prior ordering habits.
+
+3. Sharing and Disclosure with Third Parties
+We do not sell personal data. We disclose personal data under strict contractual confidentiality terms:
+- Delivery Partners & Merchants: Sharing customer name, delivery address, and masked phone numbers to fulfill orders.
+- Payment Gateways: Processing transactions through RBI-authorized payment aggregators and UPI switches.
+- Cloud Infrastructure & Analytics Providers: Hosting data on secure Indian cloud regions (AWS / Azure) and debugging performance.
+- Law Enforcement: When required by applicable statutory summons, warrant, or court order in India.
+
+4. Data Retention and Deletion
+We retain personal information for as long as necessary to fulfill the purposes outlined in this policy or as required by Indian taxation, accounting, and consumer protection laws (typically up to 5 years for financial transaction records). Where an account is voluntarily closed, personal identifying data is anonymized or purged within 90 days, subject to dispute resolution holds.
+
+5. Security Safeguards
+We implement technical and organizational security measures including TLS 1.3 encryption in transit, AES-256 encryption at rest for sensitive records, role-based access control, multi-factor authentication for administrative portals, and periodic penetration testing.
+
+6. Your Rights and Grievance Redressal
+Under applicable data protection regulations (DPDP Act, 2023), you may:
+- Request access to your order history and registered account data.
+- Request correction of inaccurate profile data.
+- Request deletion of your personal account by visiting App Settings -> Privacy -> Delete Account.
+- Withdraw consent for marketing notifications anytime via notification toggles.
+- Grievance Officer: grievance.officer@zomato.com | Address: Zomato Limited, Gurugram, Haryana, India.

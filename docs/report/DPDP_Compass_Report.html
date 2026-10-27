@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DPDP Compass — Project Report</title>
+<style>
+@page { size: A4; margin: 16mm 15mm 18mm; }
+:root { --ink:#121a2e; --muted:#5b6478; --line:#dcd8cf; --paper:#faf8f4; --blue:#1e40af; --blue-soft:#e8eefc; --saffron:#d9731a; --saffron-soft:#fcefdf; --violet:#6d4ae0; --violet-soft:#efeafd; --green:#15803d; --green-soft:#e3f4e8; --red:#b91c1c; --red-soft:#fbe5e5; --amber:#b45309; --amber-soft:#fbf0dc; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin:0; font: 10.2pt/1.5 "Segoe UI", Arial, sans-serif; color: var(--ink); }
+h1,h2,.serif { font-family: Georgia, "Times New Roman", serif; font-weight: normal; }
+h2 { font-size: 20pt; margin: 0 0 4pt; color: var(--ink); }
+h2 .num { color: var(--saffron); font-size: 11pt; font-family: "Segoe UI", Arial; font-weight: 600; letter-spacing: .12em; display:block; margin-bottom: 2pt; }
+h3 { font-size: 11.5pt; margin: 14pt 0 6pt; color: var(--blue); }
+p { margin: 0 0 7pt; }
+section { page-break-inside: auto; margin-bottom: 18pt; }
+.pb { page-break-before: always; }
+.avoid { page-break-inside: avoid; }
+table { width:100%; border-collapse: collapse; margin: 6pt 0 10pt; font-size: 9.4pt; page-break-inside: auto; }
+tr { page-break-inside: avoid; }
+th { background: var(--blue-soft); color: var(--blue); text-align:left; font-weight:600; padding: 5pt 7pt; border: 1px solid #c9d4f1; }
+td { padding: 5pt 7pt; border: 1px solid var(--line); vertical-align: top; }
+tr:nth-child(even) td { background: #fcfbf8; }
+td.c { text-align:center; white-space: nowrap; }
+code, .mono { font-family: Consolas, "Cascadia Mono", monospace; font-size: 8.8pt; }
+.lead { font-size: 11pt; color: var(--muted); }
+
+/* Cover */
+.cover { height: 257mm; display:flex; flex-direction:column; justify-content:space-between; background: linear-gradient(160deg, #0f1b3d 0%, #1e40af 55%, #d9731a 130%); color:#fff; padding: 22mm 18mm; margin: -16mm -15mm 0; width: calc(100% + 30mm); page-break-after: always; }
+.cover .brand { display:flex; align-items:center; gap:10pt; font-size: 13pt; letter-spacing:.04em; }
+.cover h1 { font-size: 46pt; line-height: 1.02; margin: 0 0 14pt; }
+.cover h1 i { color: #ffc98f; }
+.cover .sub { font-size: 13pt; opacity: .88; max-width: 125mm; }
+.cover .facts { display:grid; grid-template-columns: repeat(4,1fr); gap: 8pt; }
+.cover .facts div { border-top: 1px solid rgba(255,255,255,.35); padding-top: 6pt; }
+.cover .facts b { display:block; font-family: Georgia, serif; font-weight: normal; font-size: 22pt; }
+.cover .facts span { font-size: 8.5pt; opacity: .8; }
+.cover .foot { font-size: 9pt; opacity: .75; display:flex; justify-content:space-between; }
+
+/* Callouts */
+.callout { border-left: 3pt solid var(--saffron); background: var(--saffron-soft); padding: 7pt 10pt; border-radius: 0 6pt 6pt 0; margin: 8pt 0; }
+.cards { display:grid; grid-template-columns: 1fr 1fr; gap: 8pt; margin: 8pt 0; }
+.card { border: 1px solid var(--line); border-radius: 8pt; padding: 9pt 11pt; background: #fff; }
+.card h4 { margin: 0 0 4pt; font-size: 10.5pt; }
+
+/* Diagram primitives */
+.dia { border: 1px solid var(--line); border-radius: 10pt; background: var(--paper); padding: 12pt; margin: 8pt 0 4pt; page-break-inside: avoid; }
+.cap { font-size: 8.3pt; color: var(--muted); margin: 3pt 0 10pt; font-style: italic; }
+.layer { border-radius: 8pt; padding: 8pt 10pt; margin-bottom: 0; }
+.layer .lt { font-size: 8pt; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 6pt; }
+.row { display:flex; gap: 6pt; flex-wrap: nowrap; }
+.box { flex:1; background:#fff; border: 1px solid var(--line); border-radius: 6pt; padding: 5pt 6pt; text-align:center; font-size: 8.8pt; }
+.box small { display:block; color: var(--muted); font-size: 7.6pt; }
+.l-fe { background: var(--blue-soft); border: 1px solid #c9d4f1; } .l-fe .lt { color: var(--blue); }
+.l-be { background: var(--violet-soft); border: 1px solid #d9cffa; } .l-be .lt { color: var(--violet); }
+.l-kb { background: var(--saffron-soft); border: 1px solid #f3d3ae; } .l-kb .lt { color: var(--saffron); }
+.l-ai { background: var(--green-soft); border: 1px solid #bfe3ca; } .l-ai .lt { color: var(--green); }
+.down { text-align:center; color: var(--muted); font-size: 8pt; line-height: 1; padding: 3pt 0; }
+.down::before { content: "▼"; display:block; font-size: 10pt; color: #9aa3b5; }
+
+.flow { display:flex; flex-direction:column; align-items:stretch; }
+.step { display:grid; grid-template-columns: 26pt 1fr 150pt; gap: 8pt; align-items:center; background:#fff; border:1px solid var(--line); border-radius: 7pt; padding: 6pt 9pt; }
+.step .n { width: 22pt; height: 22pt; border-radius: 50%; background: var(--blue); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size: 9pt; }
+.step b { font-size: 9.6pt; } .step .d { font-size: 8.6pt; color: var(--muted); }
+.step .tag { font-size: 8pt; text-align:right; color: var(--muted); }
+.step.io { background: var(--ink); color:#fff; border-color: var(--ink); } .step.io .d, .step.io .tag { color: #c5cbe0; } .step.io .n { background: var(--saffron); }
+.step.gate { background: var(--amber-soft); border-color: #f0d6a6; } .step.gate .n { background: var(--amber); }
+.step.ok { background: var(--green-soft); border-color: #bfe3ca; } .step.ok .n { background: var(--green); }
+.arrow { text-align:center; color:#9aa3b5; font-size: 9pt; line-height: 1.1; }
+.branch { font-size: 8.2pt; color: var(--saffron); text-align:center; font-weight:600; }
+
+.lanes { display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 0; font-size: 8.6pt; }
+.lanes .h { text-align:center; font-weight:700; padding: 5pt; background: var(--ink); color:#fff; border-right: 1px solid #2c375a; }
+.msg { grid-column: span 4; display:grid; grid-template-columns: 1fr 1fr 1fr 1fr; align-items:center; border-bottom: 1px dashed var(--line); padding: 4pt 0; }
+.msg span { text-align:center; }
+.msg .ar { color: var(--blue); font-weight:600; }
+
+.compare { display:grid; grid-template-columns: 1fr 34pt 1fr; gap: 6pt; align-items:center; }
+.pill { display:inline-block; padding: 1.5pt 6pt; border-radius: 10pt; font-size: 8pt; font-weight:600; }
+.p-ok { background: var(--green-soft); color: var(--green); } .p-part { background: var(--amber-soft); color: var(--amber); } .p-miss { background: var(--red-soft); color: var(--red); } .p-na { background:#eceef3; color: var(--muted); }
+
+.bar { height: 7pt; border-radius: 4pt; background: #e6e3dc; overflow:hidden; }
+.bar i { display:block; height:100%; background: linear-gradient(90deg, var(--blue), var(--saffron)); }
+.weeks td:first-child { font-weight: 700; color: var(--blue); white-space: nowrap; }
+ul { margin: 3pt 0 7pt; padding-left: 14pt; } li { margin-bottom: 2pt; }
+.small { font-size: 8.6pt; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="brand">
+    <svg width="34" height="34" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="#fff" stroke-width="1.6"/><path d="M12 4.5l2.6 7.5L12 19.5 9.4 12z" fill="#ffc98f"/></svg>
+    DPDP COMPASS
+  </div>
+  <div>
+    <div style="font-size:10pt;letter-spacing:.2em;opacity:.8;margin-bottom:10pt">PROJECT REPORT · SEPTEMBER 2026</div>
+    <h1>India's privacy law,<br><i>decoded.</i></h1>
+    <div class="sub">A retrieval-augmented, multi-agent assistant for the Digital Personal Data Protection Act, 2023 and DPDP Rules, 2025 — for citizens who want to know their rights and businesses that need to comply.</div>
+  </div>
+  <div>
+    <div class="facts">
+      <div><b>71</b><span>legal passages indexed</span></div>
+      <div><b>11</b><span>DPDP obligations audited</span></div>
+      <div><b>7</b><span>safety checks per answer</span></div>
+      <div><b>~1 s</b><span>to first streamed words</span></div>
+    </div>
+    <div class="foot" style="margin-top:18pt"><span>FastAPI · LangGraph · React · Groq</span><span>Educational guidance — not legal advice</span></div>
+  </div>
+</div>
+
+<!-- 1 OVERVIEW -->
+<section>
+  <h2><span class="num">01 · OVERVIEW</span>What DPDP Compass does</h2>
+  <div class="callout" style="border-left-color:#b91c1c;background:#fbe5e5"><b>Snapshot of 30 September 2026.</b> The audit engine was rebuilt on 10 October 2026: the system now uses 83 clause chunks, a 14-obligation checklist and six guardrail checks. For the current design and measured results see <code>project/docs/DOCUMENTATION.md</code> and the paper in <code>project/docs/paper</code>.</div><p class="lead">DPDP Compass answers questions and audits privacy policies using only the text of the DPDP Act. Every answer cites the exact section or sub-clause it relies on — for example <b>§ 8(6)</b>.</p>
+  <div class="cards">
+    <div class="card"><h4>👤 For citizens</h4><ul><li>Ask about data rights in English, Hindi or Marathi</li><li>See what an app's privacy policy really says</li><li>Get a trust score and the gaps that affect you</li></ul></div>
+    <div class="card"><h4>🏢 For businesses</h4><ul><li>Audit a policy against 11 DPDP obligations</li><li>Law and policy quoted side by side per finding</li><li>Generate a compliant draft; export PDF / Word / MD</li></ul></div>
+  </div>
+  <div class="callout"><b>Core principle — no citation, no claim.</b> The AI model only writes from passages of the law retrieved for the question. If the Act doesn't answer it, the assistant says so rather than guessing.</div>
+</section>
+
+<!-- 2 ARCHITECTURE -->
+<section>
+  <h2><span class="num">02 · ARCHITECTURE</span>System architecture</h2>
+  <div class="dia">
+    <div class="layer l-fe"><div class="lt">Frontend · React 18 + TypeScript + Vite + Tailwind + Motion</div>
+      <div class="row"><div class="box">Landing<small>animated overview</small></div><div class="box">Dashboard<small>audits, KB status</small></div><div class="box">Citizen assistant<small>streaming chat</small></div><div class="box">Business workbench<small>audit & draft</small></div><div class="box">Evaluation<small>quality metrics</small></div></div>
+    </div>
+    <div class="down">live text stream (SSE) · JSON requests · file uploads</div>
+    <div class="layer l-be"><div class="lt">Backend · FastAPI (Python)</div>
+      <div class="row"><div class="box">API layer<small>REST + streaming</small></div><div class="box">AI workflow<small>LangGraph agents</small></div><div class="box">Safety checks<small>7 guardrails</small></div><div class="box">Exporter<small>PDF · DOCX · MD</small></div><div class="box">SQLite<small>saved audits</small></div></div>
+    </div>
+    <div class="down">hybrid search</div>
+    <div class="row">
+      <div class="layer l-kb" style="flex:3"><div class="lt">Knowledge & search</div>
+        <div class="row"><div class="box">Meaning search<small>MiniLM vectors · Qdrant</small></div><div class="box">Keyword search<small>BM25Plus</small></div><div class="box">Legal graph<small>Neo4j / in-memory</small></div><div class="box">Re-ranker<small>cross-encoder</small></div></div>
+      </div>
+      <div class="layer l-ai" style="flex:1.1"><div class="lt">Language model</div>
+        <div class="row"><div class="box">Groq<small>gpt-oss-120b · Qwen fallback</small></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="cap">Figure 1 — Layered architecture. Qdrant and Neo4j are used when running; otherwise in-memory fallbacks keep the system working.</div>
+
+</section>
+
+<!-- 3 KNOWLEDGE BASE -->
+<section class="pb">
+  <h2><span class="num">03 · KNOWLEDGE BASE</span>What the system knows</h2>
+  <table>
+    <tr><th style="width:24%">Source</th><th style="width:22%">Contents</th><th>How it is prepared</th></tr>
+    <tr><td><b>DPDP Act, 2023</b><br><span class="small">Official Gazette text</span></td><td>71 legal passages</td><td>Split at section and sub-clause boundaries — nothing truncated — so each passage keeps its exact citation, e.g. § 6(4)</td></tr>
+    <tr><td><b>DPDP Rules, 2025</b></td><td>Referenced</td><td>Deeper rule-level ingestion planned</td></tr>
+    <tr><td><b>Reference privacy policies</b></td><td>69 passages from 10 apps</td><td>Zomato, Swiggy, Paytm, Flipkart, Zerodha, CRED, Razorpay, Meesho, Zepto, Blinkit — answers “what does this app do with my data?”</td></tr>
+    <tr><td><b>Legal knowledge graph</b></td><td>Subject → duty → object</td><td>e.g. <i>Data Fiduciary → must notify → Board</i>; surfaces related clauses keyword search misses</td></tr>
+    <tr><td><b>User uploads</b></td><td>PDF, DOCX, TXT, MD (≤ 10 MB) or URL</td><td>Parsed and chunked; URLs pass an SSRF security check first</td></tr>
+  </table>
+
+  <div class="dia">
+    <div class="row" style="align-items:center">
+      <div class="box" style="flex:1.2"><b>Gazette PDF</b><small>DPDP Act, 2023</small></div><div style="color:#9aa3b5">➜</div>
+      <div class="box"><b>Clause chunker</b><small>section & sub-clause aware</small></div><div style="color:#9aa3b5">➜</div>
+      <div class="box"><b>Metadata</b><small>section no., title, source</small></div><div style="color:#9aa3b5">➜</div>
+      <div class="box" style="background:var(--saffron-soft)"><b>3 indexes</b><small>vectors · BM25 · graph</small></div>
+    </div>
+  </div>
+  <div class="cap">Figure 2 — Ingestion pipeline for the law.</div>
+
+  <h3>Inputs accepted</h3>
+  <table>
+    <tr><th style="width:26%">Input</th><th style="width:26%">Where</th><th>Example</th></tr>
+    <tr><td>A question</td><td>Citizen assistant</td><td>“Can Zomato sell my phone number?”</td></tr>
+    <tr><td>An app name</td><td>Citizen assistant</td><td>“Zerodha”</td></tr>
+    <tr><td>Privacy-policy file</td><td>Citizen / Business</td><td><code>company_policy.pdf</code></td></tr>
+    <tr><td>Pasted policy text</td><td>Business → Audit</td><td>Full text of a privacy policy</td></tr>
+    <tr><td>Company details form</td><td>Business → Create</td><td>Name, sector, data collected, purposes…</td></tr>
+  </table>
+</section>
+
+<!-- 4 WORKFLOW -->
+<section class="pb">
+  <h2><span class="num">04 · WORKFLOW</span>How a request is processed</h2>
+  <div class="dia flow">
+    <div class="step io"><div class="n">▶</div><div><b>Input</b><div class="d">A question, an app name, or a privacy policy</div></div><div class="tag">English · हिंदी · मराठी</div></div>
+    <div class="arrow">▼</div>
+    <div class="step"><div class="n">1</div><div><b>Orchestrator</b><div class="d">Detects mode (citizen / audit / draft) and language</div></div><div class="tag">orchestrator.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step"><div class="n">2</div><div><b>Hybrid retrieval</b><div class="d">Meaning + keyword + graph search, then cross-encoder re-ranking keeps the best clauses</div></div><div class="tag">retrieval_agent.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="branch">Citizen question with no policy? → fast path straight to step 7</div>
+    <div class="arrow">▼</div>
+    <div class="step"><div class="n">3</div><div><b>Obligation mapping</b><div class="d">Selects which of the 11 DPDP duties apply</div></div><div class="tag">obligation_mapping_agent.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step"><div class="n">4</div><div><b>Compliance check</b><div class="d">Each duty compared with the policy → Satisfied / Partial / Missing / Not applicable</div></div><div class="tag">compliance_agent.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step"><div class="n">5</div><div><b>Risk scoring</b><div class="d">Severity, urgency and overall compliance / trust score</div></div><div class="tag">risk_agent.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step gate"><div class="n">6</div><div><b>Guardrails — 7 safety checks</b><div class="d">Unsupported, invented or injected content is blocked</div></div><div class="tag">guardrails/engine.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step ok"><div class="n">7</div><div><b>Answer / report generation</b><div class="d">Streamed citizen answer, full audit report, or policy draft</div></div><div class="tag">policy_generation_agent.py</div></div>
+    <div class="arrow">▼</div>
+    <div class="step io"><div class="n">✓</div><div><b>Output</b><div class="d">Answer + section citations + score + downloadable report</div></div><div class="tag">PDF · Word · Markdown</div></div>
+  </div>
+  <div class="cap">Figure 3 — LangGraph agent pipeline (app/graph/workflow.py).</div>
+</section>
+
+<section class="avoid">
+  <h3>Streaming — how an answer appears live</h3>
+  <div class="dia">
+    <div class="lanes">
+      <div class="h">Browser</div><div class="h">API server</div><div class="h">Workflow</div><div class="h" style="border-right:0">Groq AI</div>
+      <div class="msg"><span>question</span><span class="ar">──────►</span><span></span><span></span></div>
+      <div class="msg"><span></span><span>cache lookup<br><span class="small">hit → instant answer</span></span><span></span><span></span></div>
+      <div class="msg"><span></span><span class="ar">──────►</span><span>retrieve + analyse</span><span></span></div>
+      <div class="msg"><span class="ar">◄── sources & score</span><span class="ar">◄──────</span><span>evidence ready</span><span></span></div>
+      <div class="msg"><span></span><span class="ar">prompt from retrieved passages ──────────────►</span><span></span><span>generates</span></div>
+      <div class="msg" style="border-bottom:0"><span class="ar">◄── words stream in (~1–2 s)</span><span class="ar">◄──────────────────────────────────────</span><span></span><span>token by token</span></div>
+    </div>
+  </div>
+  <div class="cap">Figure 4 — Server-Sent Events flow. Citations arrive before the first word; full answers finish in under 10 seconds.</div>
+  <h3>Technology stack</h3>
+  <table>
+    <tr><th style="width:22%">Layer</th><th>Technology</th></tr>
+    <tr><td>Frontend</td><td>React 18, TypeScript, Vite, Tailwind CSS, shadcn/Radix UI, Motion (animations), light & dark themes</td></tr>
+    <tr><td>Backend</td><td>Python, FastAPI, LangGraph (multi-agent workflow), Server-Sent Events streaming</td></tr>
+    <tr><td>AI model</td><td>Groq — <code>openai/gpt-oss-120b</code> primary, Qwen fallback, low reasoning effort for speed</td></tr>
+    <tr><td>Search</td><td>MiniLM embeddings, BM25Plus keyword index, legal knowledge graph, cross-encoder re-ranking</td></tr>
+    <tr><td>Storage</td><td>Qdrant / in-memory (vectors), Neo4j / in-memory (graph), SQLite (audits), LRU answer cache</td></tr>
+    <tr><td>Exports</td><td>PyMuPDF (PDF with Devanagari fonts), python-docx (Word), Markdown</td></tr>
+  </table>
+
+</section>
+
+<!-- 5 COMPLIANCE -->
+<section>
+  <h2><span class="num">05 · COMPLIANCE ENGINE</span>How a policy is checked against the Act</h2>
+  <h3>The 11 obligations audited</h3>
+  <table>
+    <tr><th style="width:6%">#</th><th>Obligation of a Data Fiduciary</th><th style="width:18%">DPDP section</th></tr>
+    <tr><td class="c">1</td><td>Clear notice before collecting personal data</td><td>§ 5 / § 6</td></tr>
+    <tr><td class="c">2</td><td>Free, specific, informed, unconditional consent</td><td>§ 6(1)</td></tr>
+    <tr><td class="c">3</td><td>Withdrawal of consent as easy as giving it</td><td>§ 6(4)</td></tr>
+    <tr><td class="c">4</td><td>Process only for disclosed lawful purposes</td><td>§ 6(2)</td></tr>
+    <tr><td class="c">5</td><td>Reasonable security safeguards, incl. encryption</td><td>§ 8(5)</td></tr>
+    <tr><td class="c">6</td><td>Notify Board and users of a personal-data breach</td><td>§ 8(6)</td></tr>
+    <tr><td class="c">7</td><td>Erase data on withdrawal or when purpose is served</td><td>§ 8(7)</td></tr>
+    <tr><td class="c">8</td><td>Appoint and publish a Data Protection Officer</td><td>§ 8(9)</td></tr>
+    <tr><td class="c">9</td><td>Grievance redressal mechanism</td><td>§ 8(10) / § 13</td></tr>
+    <tr><td class="c">10</td><td>Verifiable parental consent for children's data</td><td>§ 9</td></tr>
+    <tr><td class="c">11</td><td>Honour rights of access, correction and erasure</td><td>§ 11 – § 12</td></tr>
+  </table>
+
+  <h3>Checking one obligation</h3>
+  <div class="dia">
+    <div class="box" style="background:var(--ink);color:#fff;border-color:var(--ink);margin-bottom:6pt"><b>Obligation: Breach notification — § 8(6)</b></div>
+    <div class="compare">
+      <div class="box" style="background:var(--blue-soft)"><b>LAW evidence</b><small>exact sub-clause retrieved from the Act and quoted</small></div>
+      <div style="text-align:center;font-weight:700;color:var(--saffron)">vs</div>
+      <div class="box" style="background:var(--saffron-soft)"><b>POLICY evidence</b><small>closest paragraph found in the uploaded policy</small></div>
+    </div>
+    <div class="arrow">▼</div>
+    <div class="row">
+      <div class="box" style="text-align:left"><b>AI mode</b><small style="text-align:left">Groq classifies using both texts. Policy text is treated strictly as data — instructions inside it are ignored.</small></div>
+      <div class="box" style="text-align:left"><b>Rule-based mode (offline)</b><small style="text-align:left">Keyword rules per obligation + word overlap: ≥ 50% → Satisfied, ≥ 25% → Partial, otherwise Missing.</small></div>
+    </div>
+    <div class="arrow">▼</div>
+    <div class="box" style="background:var(--green-soft)"><b>Finding</b> = status + severity + law quote + policy quote + recommended fix &nbsp;
+      <span class="pill p-ok">Satisfied</span> <span class="pill p-part">Partial</span> <span class="pill p-miss">Missing</span> <span class="pill p-na">Not applicable</span></div>
+  </div>
+  <div class="cap">Figure 5 — Per-obligation evaluation in compliance_agent.py.</div>
+
+  <h3>Scoring</h3>
+  <table>
+    <tr><th>Status</th><th style="width:22%">Weight</th><th>Meaning</th></tr>
+    <tr><td><span class="pill p-ok">Satisfied</span></td><td>1.0 (full)</td><td>Policy clearly commits to the duty</td></tr>
+    <tr><td><span class="pill p-part">Partial</span></td><td>0.5 (half)</td><td>Mentioned but incomplete or vague</td></tr>
+    <tr><td><span class="pill p-miss">Missing</span></td><td>0</td><td>No matching commitment found</td></tr>
+    <tr><td><span class="pill p-na">Not applicable</span></td><td>excluded</td><td>Duty doesn't apply — never counted against the company</td></tr>
+  </table>
+  <p class="small">Score = (Satisfied + 0.5 × Partial) ÷ applicable obligations × 100 — deterministic and reproducible.</p>
+</section>
+
+<section class="avoid">
+  <h3>The 7 guardrails (run before anything is shown)</h3>
+  <table>
+    <tr><th style="width:32%">Check</th><th>What it prevents</th></tr>
+    <tr><td>Citation exists</td><td>Claims with no source</td></tr>
+    <tr><td>High-risk evidence</td><td>Serious findings resting on weak evidence</td></tr>
+    <tr><td>Hallucinated citation</td><td>Sections that don't exist in the Act</td></tr>
+    <tr><td>Confidence range</td><td>Implausible confidence values</td></tr>
+    <tr><td>Malformed output</td><td>Broken or incomplete AI responses</td></tr>
+    <tr><td>Prompt injection</td><td>Hidden instructions inside uploaded documents</td></tr>
+    <tr><td>Unsupported claim</td><td>Statements not backed by retrieved text</td></tr>
+  </table>
+  <h3>Outputs</h3>
+  <ul>
+    <li><b>Citizen:</b> short answer, what it means, relevant rights, cited sections, app trust score.</li>
+    <li><b>Business audit:</b> overall score, status per obligation, law vs policy side by side, recommended fixes.</li>
+    <li><b>Policy draft:</b> a complete privacy policy citing DPDP sections.</li>
+    <li><b>Downloads:</b> PDF (Hindi/Marathi supported), Word, Markdown.</li>
+  </ul>
+</section>
+
+<!-- 6 PROGRESS -->
+<section class="pb">
+  <h2><span class="num">06 · PROGRESS</span>Development progress — 7 weeks</h2>
+  <table class="weeks">
+    <tr><th style="width:9%">Week</th><th style="width:30%">Milestone</th><th>Issue found → fixed</th></tr>
+    <tr><td>1</td><td>Planning, system design, ingestion of the Act</td><td>Chunker cut sections at 2,000 characters → full clauses preserved (71 passages)</td></tr>
+    <tr><td>2</td><td>Hybrid search engine</td><td>Keyword scoring gave zero weight on a small corpus → switched to BM25Plus; keyword search wasn't wired in → connected</td></tr>
+    <tr><td>3</td><td>AI agents, guardrails, scoring</td><td>Reports quoted the wrong section → each finding now quotes its exact sub-clause</td></tr>
+    <tr><td>4</td><td>Groq integration and streaming</td><td>Hidden SDK retries on rate limits caused delays → removed, fallback model added</td></tr>
+    <tr><td>5</td><td>Security hardening, 71 automated tests</td><td>Flaky internet-dependent test → runs offline; unknown apps got no answer → falls back to the Act</td></tr>
+    <tr><td>6</td><td>Frontend v1, 3-format downloads, persistent state</td><td>Cluttered UI with overflow → simplified; heavy PDF/Word tables → restyled</td></tr>
+    <tr><td>7</td><td>Final UI, animated landing page, documentation</td><td>Wasted space on wide screens → sidebar layout with side panels</td></tr>
+  </table>
+
+  <h3>Overall completion</h3>
+  <table>
+    <tr><th style="width:34%">Area</th><th style="width:16%">Status</th><th>Progress</th></tr>
+    <tr><td>Knowledge base & search</td><td><span class="pill p-ok">Done</span></td><td><div class="bar"><i style="width:90%"></i></div></td></tr>
+    <tr><td>AI agents & compliance engine</td><td><span class="pill p-ok">Done</span></td><td><div class="bar"><i style="width:90%"></i></div></td></tr>
+    <tr><td>Guardrails & security</td><td><span class="pill p-ok">Done</span></td><td><div class="bar"><i style="width:85%"></i></div></td></tr>
+    <tr><td>Frontend & exports</td><td><span class="pill p-ok">Done</span></td><td><div class="bar"><i style="width:95%"></i></div></td></tr>
+    <tr><td>Evaluation benchmark</td><td><span class="pill p-part">Partial</span></td><td><div class="bar"><i style="width:40%"></i></div></td></tr>
+    <tr><td>User accounts & deployment</td><td><span class="pill p-miss">Planned</span></td><td><div class="bar"><i style="width:10%"></i></div></td></tr>
+  </table>
+</section>
+
+<!-- 7 STATUS -->
+<section class="avoid">
+  <h2><span class="num">07 · STATUS</span>Current status</h2>
+  <table>
+    <tr><th>Capability</th><th style="width:20%">Status</th></tr>
+    <tr><td>Citizen Q&amp;A — streaming, 3 languages</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>Policy audit — 11 obligations</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>Policy generation</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>PDF / Word / Markdown export</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>Guardrails & prompt-injection defence</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>Automated tests</td><td><span class="pill p-ok">71 / 71 pass</span></td></tr>
+    <tr><td>Speed — first words ~1–2 s, full answer &lt; 10 s</td><td><span class="pill p-ok">Met</span></td></tr>
+    <tr><td>Light / dark themes, mobile layout</td><td><span class="pill p-ok">Working</span></td></tr>
+    <tr><td>User sign-in</td><td><span class="pill p-miss">Planned</span></td></tr>
+  </table>
+  <h3>Known limitations</h3>
+  <ul>
+    <li>No user accounts yet — “Get started” opens the app directly.</li>
+    <li>Groq free tier rate limits can slow answers under heavy load.</li>
+    <li>In-memory indexes rebuild at each start (~20 s) when Qdrant/Neo4j aren't running.</li>
+    <li>SQLite suits a single server; production needs Postgres.</li>
+  </ul>
+</section>
+
+<!-- 8 ROADMAP -->
+<section class="avoid">
+  <h2><span class="num">08 · ROADMAP</span>Next steps</h2>
+  <table>
+    <tr><th style="width:16%">Phase</th><th style="width:22%">Focus</th><th>Deliverables</th></tr>
+    <tr><td>Oct 2026</td><td>Foundations</td><td>User sign-in (email + OAuth); Postgres, Qdrant and Neo4j in Docker</td></tr>
+    <tr><td>Nov 2026</td><td>Measurable quality</td><td>Full DPDP Rules 2025 ingestion; ~200-case benchmark in CI; dual-model agreement on high-risk findings</td></tr>
+    <tr><td>Dec 2026</td><td>Product depth</td><td>Applicability engine; 72-hour breach-notice planner; consent-notice builder; team workspaces</td></tr>
+    <tr><td>Jan 2027</td><td>Production</td><td>Monitoring and cost dashboards; cloud deployment; load test (p95 &lt; 3 s to first token)</td></tr>
+  </table>
+  <div class="callout"><b>Why now:</b> every Data Fiduciary duty under the DPDP Act becomes enforceable in <b>May 2027</b>, with penalties up to <b>₹250 crore</b> per breach of security safeguards.</div>
+</section>
+
+</body>
+</html>

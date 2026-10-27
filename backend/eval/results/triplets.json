@@ -1,0 +1,558 @@
+{
+ "model": "qwen/qwen3.8-27b",
+ "population": 74,
+ "sampled": 60,
+ "correct": 49,
+ "precision": 0.817,
+ "ci95": [
+  0.72,
+  0.92
+ ],
+ "errors": {
+  "object": 6,
+  "subject": 4,
+  "modality": 1
+ },
+ "rows": [
+  {
+   "id": "O50",
+   "provision": "27(3)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "on a representation made to it by a person affected by a direction issued under sub-section (1) or sub-section (2), or o",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O58",
+   "provision": "28(11)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "either close the proceedings or proceed in accordance with section 33",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O74",
+   "provision": "43(1)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "make such provisions not inconsistent with the provisions of this Act as may appear to it to be necessary or expedient f",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O41",
+   "provision": "19(2)",
+   "actor": "Chairperson",
+   "predicate": "MUST",
+   "action": "be appointed by the Central Government in such manner as may be prescribed",
+   "correct": false,
+   "error": "subject"
+  },
+  {
+   "id": "O44",
+   "provision": "22(3)",
+   "actor": "Chairperson",
+   "predicate": "MUST_NOT",
+   "action": "for a period of one year from the date on which they cease to hold such office, except with the previous approval of the",
+   "correct": false,
+   "error": "subject"
+  },
+  {
+   "id": "O13",
+   "provision": "8(3)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "ensure its completeness, accuracy and consistency",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O16",
+   "provision": "8(6)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "give the Board and each affected Data Principal, intimation of such breach in such form and manner as may be prescribed",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O39",
+   "provision": "18(2)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "be a body corporate by the name aforesaid, having perpetual succession and a common seal, with power, subject to the pro",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O67",
+   "provision": "32(1)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "accept a voluntary undertaking in respect of any matter related to observance of the provisions of this Act from any per",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O23",
+   "provision": "9(5)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "if satisfied that a Data Fiduciary has ensured that its processing of personal data of children is done in a manner that",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O30",
+   "provision": "12(3)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "erase her personal data unless retention of the same is necessary for the specified purpose or for compliance with any l",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O59",
+   "provision": "29(3)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MAY",
+   "action": "entertain an appeal after the expiry of the period specified in sub-section (2), if it is satisfied that there was suffi",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O60",
+   "provision": "29(4)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MAY",
+   "action": "pass such orders thereon as it thinks fit, confirming, modifying or setting aside the order appealed against",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O12",
+   "provision": "8(2)",
+   "actor": "Data Fiduciary",
+   "predicate": "MAY",
+   "action": "engage, appoint, use or otherwise involve a Data Processor to process personal data on its behalf for any activity relat",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O71",
+   "provision": "36",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "require the Board and any Data Fiduciary or intermediary to furnish such information as it may call for",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O2",
+   "provision": "5(2)",
+   "actor": "Data Fiduciary",
+   "predicate": "MAY",
+   "action": "continue to process the personal data until and unless the Data Principal withdraws her consent",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O14",
+   "provision": "8(4)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "implement appropriate technical and organisational measures to ensure effective observance of the provisions of this Act",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O24",
+   "provision": "10(1)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "notify any Data Fiduciary or class of Data Fiduciaries as Significant Data Fiduciary, on the basis of an assessment of s",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O5",
+   "provision": "6(6)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "cease and cause its Data Processors to cease processing the personal data of such Data Principal unless such processing ",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O40",
+   "provision": "19(1)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "consist of a Chairperson and such number of other Members as the Central Government may notify",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O9",
+   "provision": "6(10)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "be obliged to prove that a notice was given by her to the Data Principal and consent was given by such Data Principal to",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O46",
+   "provision": "24",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "appoint such officers and employees as it may deem necessary for the efficient discharge of its functions under the prov",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O51",
+   "provision": "28(1)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "function as an independent body and shall, as far as practicable, function as a digital office, with the receipt of comp",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O3",
+   "provision": "5(3)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "give the Data Principal the option to access the contents of the notice referred to in sub-sections (1) and (2) in Engli",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O69",
+   "provision": "32(5)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "proceed in accordance with the provisions of section 33",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O10",
+   "provision": "7",
+   "actor": "Data Fiduciary",
+   "predicate": "MAY",
+   "action": "process personal data of a Data Principal for any of following uses, namely:— (a) for the specified purpose for which th",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O31",
+   "provision": "13(1)",
+   "actor": "Data Principal",
+   "predicate": "HAS_RIGHT",
+   "action": "to have readily available means of grievance redressal provided by a Data Fiduciary or Consent Manager in respect of any",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O29",
+   "provision": "12(3)",
+   "actor": "Data Principal",
+   "predicate": "MUST",
+   "action": "make a request in such manner as may be prescribed to the Data Fiduciary for erasure of her personal data, and upon rece",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O35",
+   "provision": "15",
+   "actor": "Data Principal",
+   "predicate": "MUST",
+   "action": "perform the following duties, namely:— (a) comply with the provisions of all applicable laws for the time being in force",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O22",
+   "provision": "9(3)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST_NOT",
+   "action": "undertake tracking or behavioural monitoring of children or targeted advertising directed at children",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O33",
+   "provision": "13(3)",
+   "actor": "Data Principal",
+   "predicate": "MUST",
+   "action": "exhaust the opportunity of redressing her grievance under this section before approaching the Board",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O56",
+   "provision": "28(8)",
+   "actor": "Board",
+   "predicate": "MUST_NOT",
+   "action": "prevent access to any premises or take into custody any equipment or any item that may adversely affect the day-to-day f",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O43",
+   "provision": "20(2)",
+   "actor": "Chairperson",
+   "predicate": "MUST",
+   "action": "hold office for a term of two years and shall be eligible for re-appointment",
+   "correct": false,
+   "error": "subject"
+  },
+  {
+   "id": "O53",
+   "provision": "28(3)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "determine whether there are sufficient grounds to proceed with an inquiry",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O64",
+   "provision": "29(10)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MUST",
+   "action": "function as a digital office, with the receipt of appeal, hearing and pronouncement of decisions in respect of the same ",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O32",
+   "provision": "13(2)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "respond to any grievances referred to in sub-section (1) within such period as may be prescribed from the date of its re",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O63",
+   "provision": "29(8)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MUST",
+   "action": "deal with an appeal under this section in accordance with such procedure as may be prescribed",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O8",
+   "provision": "6(9)",
+   "actor": "Consent Manager",
+   "predicate": "MUST",
+   "action": "be registered with the Board in such manner and subject to such technical, operational, financial and other conditions a",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O68",
+   "provision": "32(3)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "after accepting the voluntary undertaking and with the consent of the person who gave the voluntary undertaking vary the",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O7",
+   "provision": "6(8)",
+   "actor": "Consent Manager",
+   "predicate": "MUST",
+   "action": "be accountable to the Data Principal and shall act on her behalf in such manner and subject to such obligations as may b",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O42",
+   "provision": "19(3)",
+   "actor": "Chairperson",
+   "predicate": "MUST",
+   "action": "be a person of ability, integrity and standing who possesses special knowledge or practical experience in the fields of ",
+   "correct": false,
+   "error": "subject"
+  },
+  {
+   "id": "O34",
+   "provision": "14(1)",
+   "actor": "Data Principal",
+   "predicate": "HAS_RIGHT",
+   "action": "to nominate, in such manner as may be prescribed, any other individual, who shall, in the event of death or incapacity o",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O54",
+   "provision": "28(6)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "conduct such inquiry following the principles of natural justice and shall record reasons for its actions during the cou",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O72",
+   "provision": "40(1)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "make rules not inconsistent with the provisions of this Act, to carry out the purposes of this Act",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O36",
+   "provision": "16(1)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "restrict the transfer of personal data by a Data Fiduciary for processing to such country or territory outside India as ",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O21",
+   "provision": "9(2)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST_NOT",
+   "action": "undertake such processing of personal data that is likely to cause any detrimental effect on the well-being of a child",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O62",
+   "provision": "29(7)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MUST",
+   "action": "record its reasons in writing for not disposing of the appeal within that period",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O20",
+   "provision": "9(1)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "before processing any personal data of a child or a person with disability who has a lawful guardian obtain verifiable c",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O47",
+   "provision": "26",
+   "actor": "Chairperson",
+   "predicate": "MUST",
+   "action": "exercise the following powers, namely:— (a) general superintendence and giving direction in respect of all administrativ",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O6",
+   "provision": "6(7)",
+   "actor": "Data Principal",
+   "predicate": "MAY",
+   "action": "give, manage, review or withdraw her consent to the Data Fiduciary through a Consent Manager",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O18",
+   "provision": "8(9)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "publish, in such manner as may be prescribed, the business contact information of a Data Protection Officer, if applicab",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O28",
+   "provision": "12(2)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "completion or updating from a Data Principal,— (a) correct the inaccurate or misleading personal data",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O49",
+   "provision": "27(2)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "after giving the person concerned an opportunity of being heard and after recording reasons in writing, issue such direc",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O66",
+   "provision": "30(2)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MAY",
+   "action": "transmit any order made by it to a civil court having local jurisdiction and such civil court shall execute the order as",
+   "correct": false,
+   "error": "object"
+  },
+  {
+   "id": "O4",
+   "provision": "6(4)",
+   "actor": "Data Principal",
+   "predicate": "HAS_RIGHT",
+   "action": "to withdraw her consent at any time, with the ease of doing so being comparable to the ease with which such consent was ",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O19",
+   "provision": "8(10)",
+   "actor": "Data Fiduciary",
+   "predicate": "MUST",
+   "action": "establish an effective mechanism to redress the grievances of Data Principals",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O38",
+   "provision": "17(5)",
+   "actor": "Central Government",
+   "predicate": "MAY",
+   "action": "declare that any provision of this Act shall not apply to such Data Fiduciary or classes of Data Fiduciaries for such pe",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O61",
+   "provision": "29(5)",
+   "actor": "Appellate Tribunal",
+   "predicate": "MUST",
+   "action": "send a copy of every order made by it to the Board and to the parties to the appeal",
+   "correct": true,
+   "error": "none"
+  },
+  {
+   "id": "O55",
+   "provision": "28(7)",
+   "actor": "Board",
+   "predicate": "MUST",
+   "action": "have the same powers as are vested in a civil court under the Code of Civil Procedure, 1908, in respect of matters relat",
+   "correct": false,
+   "error": "modality"
+  },
+  {
+   "id": "O52",
+   "provision": "28(2)",
+   "actor": "Board",
+   "predicate": "MAY",
+   "action": "on receipt of an intimation or complaint or reference or directions as referred to in sub-section (1) of section 27, tak",
+   "correct": true,
+   "error": "none"
+  }
+ ]
+}

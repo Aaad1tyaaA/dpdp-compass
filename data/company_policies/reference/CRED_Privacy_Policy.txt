@@ -1,0 +1,31 @@
+# CRED Privacy Policy (Reference Tech Corpus — Fintech, Credit Card Management & Rewards)
+Entity: Dreamplug Technologies Private Limited (CRED) | Sector: Premium Fintech & Credit Card Management | Last Updated: 2026
+
+1. Information We Collect
+- Credit Score & Bureau Data: Credit report data fetched from Experian / CRIF / CIBIL based on explicit user authorization.
+- Credit Card Metadata: Masked card numbers, issuing bank names, statement due dates, minimum amount due, and payment settlement records.
+- Email & Statement Parsing (Optional): Parsing transaction alerts and monthly credit card e-statements via read-only email authorization (Google OAuth / IMAP) for bill reminders and hidden charge detection.
+- Financial & UPI Credentials: Bank account numbers, IFSC codes, UPI handles, and auto-pay mandates.
+- Device & Security Telemetry: Android/iOS OS integrity, jailbreak/root detection, secure enclave validation, and SIM card binding.
+
+2. Grounds for Processing Personal Information
+- Credit Card Bill Management: Generating payment reminders, tracking statement cycles, and processing instant bill clearances via BBPS (Bharat Bill Payment System).
+- Credit Products & Lending (CRED Cash / CRED Mint): Credit evaluation with partner NBFCs and banks with user consent.
+- Rewards & E-Commerce (CRED Store / CRED Pay): Facilitating coin redemption, voucher dispatch, and merchant checkout.
+- Cybersecurity & Fraud Mitigation: Detecting unauthorized device logins, anomalous card spending, and payment tampering.
+
+3. Sharing and Disclosures
+- Credit Information Companies (CICs): Authorizing score refresh queries.
+- Partner Banks & NBFCs: Disclosing loan eligibility and settlement instructions for credit line drawdowns.
+- Payment Aggregators & BBPS Network: Processing bill clearing and UPI payments.
+- Regulators: RBI, CERT-In, and judicial agencies under applicable Indian statutes.
+
+4. Data Retention, Minimization and Revocation
+Users may revoke email parser access anytime from Settings -> Permissions. Upon account closure, credit card statement caches and email tokens are permanently deleted within 30 days, while financial transaction logs are archived in accordance with RBI and PMLA guidelines for 5 years.
+
+5. Security Architecture
+CRED is certified under ISO 27001, ISO 27701 (Privacy Information Management), and PCI-DSS Level 1. All parsed statement data is encrypted using end-to-end asymmetric cryptography.
+
+6. Rights and Grievance Officer
+- Grievance Redressal Officer: grievance@cred.club | Location: Bengaluru, Karnataka, India.
+- Escalation to Data Protection Board of India for statutory rights enforcement.

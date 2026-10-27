@@ -1,0 +1,22 @@
+# Render blueprint for the API. The web app is on Vercel and forwards /api/* here (frontend/vercel.json).
+services:
+  - type: web
+    name: dpdp-compass-api
+    runtime: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile.render
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: MOCK_LLM
+        value: "false"
+      - key: LLM_BASE_URL
+        value: https://api.groq.com/openai/v1
+      - key: LLM_MODEL
+        value: openai/gpt-oss-120b
+      - key: LLM_API_KEY
+        sync: false            # entered in the Render dashboard, never committed
+      - key: CORS_ORIGINS
+        value: https://dpdp-compass.vercel.app
+      - key: RATE_LIMIT_PER_MIN
+        value: "30"

@@ -1,0 +1,302 @@
+{
+  "_about": "The DPDP Compass rule book. For each checklist obligation, the requirements one section of a privacy policy must meet. Each requirement: rule (shown to users), basis (the provision), fix (advice when it fails), and tests, all of which must hold: match = regex the section must contain; absent = regex it must not contain; scope = 'policy' to test the whole policy instead of the section; check = a named test in rulebook.py (max_90_days, email_or_phone, retention_period). Regexes are case-insensitive. The generator's draft (rulebook.draft) must keep passing every rule: run python -m app.compass.rulebook after any edit.",
+  "NOTICE": [
+    {
+      "rule": "Lists each item of personal data collected",
+      "basis": "Section 5(1)(i); Rule 3(b)(i)",
+      "match": "\\bcollect",
+      "fix": "List each item of personal data you collect, e.g. 'We collect your name, mobile number and email address.'"
+    },
+    {
+      "rule": "States the purpose of the processing",
+      "basis": "Section 5(1)(i); Rule 3(b)(ii)",
+      "match": "\\bpurpose|\\bwe use\\b|\\bused (?:to|for)\\b",
+      "fix": "Say what each item of data is used for, e.g. 'We use your address to deliver orders.' Avoid 'business purposes'."
+    },
+    {
+      "rule": "Describes the service the data is used for",
+      "basis": "Rule 3(b)(ii)",
+      "match": "\\bservices?\\b|\\bgoods\\b|\\bapp\\b|\\bplatform\\b",
+      "fix": "Describe the goods or services the processing enables, e.g. 'our online grocery delivery service'."
+    },
+    {
+      "rule": "Gives the website or app link for rights and withdrawal",
+      "basis": "Rule 3(c)",
+      "match": "https?://|www\\.|\\.in\\b|\\.com\\b|\\bapp\\b",
+      "fix": "Give the link to your website or app where people withdraw consent, use their rights and learn how to complain."
+    },
+    {
+      "rule": "Tells people they can complain to the Data Protection Board",
+      "basis": "Section 5(1)(iii); Rule 3(c)(iii)",
+      "match": "data protection board",
+      "fix": "Add: 'You can complain to the Data Protection Board of India.'"
+    }
+  ],
+  "CONSENT": [
+    {
+      "rule": "Consent is given by a clear affirmative action",
+      "basis": "Section 6(1)",
+      "match": "affirmative action|\\bopt[- ]?in\\b|tick(?:ing)?\\s+(?:an?\\s+)?(?:unticked\\s+)?(?:check)?box|(?:tap|click)(?:ing)?\\s+\\W?(?:i\\s+)?agree",
+      "fix": "Say how consent is given, e.g. 'by ticking an unticked box' or 'by tapping I agree'."
+    },
+    {
+      "rule": "Asks for consent separately for each purpose",
+      "basis": "Section 6(1)",
+      "match": "separate(?:ly)?[^.]{0,60}purpose|each purpose[^.]{0,30}separate|not bundle|never bundle",
+      "fix": "Say you ask for consent separately for each purpose and never bundle it with your terms of service."
+    },
+    {
+      "rule": "Collects only the data needed for the purpose",
+      "basis": "Section 6(1)",
+      "match": "only (?:the )?(?:personal )?(?:data|information)[^.]{0,40}(?:necessary|needed|required)|(?:necessary|needed) for the (?:stated |specified |above )?purpose",
+      "fix": "Add: 'We collect only the personal data that is necessary for the purposes stated.'"
+    },
+    {
+      "rule": "Does not treat use of the service as consent",
+      "basis": "Section 6(1)",
+      "absent": "by (?:using|accessing|continuing to use|browsing|visiting|signing up|registering)[^.]{0,100}\\b(?:agree|consent|accept)",
+      "scope": "policy",
+      "fix": "Remove wording like 'by using this service you agree'. Using a service is not consent."
+    }
+  ],
+  "LANGUAGE": [
+    {
+      "rule": "Written in clear and plain language",
+      "basis": "Section 6(3); Rule 3(b)",
+      "match": "plain language",
+      "fix": "Say the notice and consent requests are in clear and plain language."
+    },
+    {
+      "rule": "Readable in English or an Eighth Schedule language",
+      "basis": "Section 6(3)",
+      "match": "eighth schedule",
+      "fix": "Say people can read the notice in English or any language in the Eighth Schedule to the Constitution, and how to choose one."
+    }
+  ],
+  "WITHDRAWAL": [
+    {
+      "rule": "Consent can be withdrawn at any time",
+      "basis": "Section 6(4)",
+      "match": "withdraw[^.]{0,80}any ?time|any ?time[^.]{0,80}withdraw",
+      "fix": "Say: 'You can withdraw your consent at any time.'"
+    },
+    {
+      "rule": "Withdrawing is as easy as giving consent",
+      "basis": "Section 6(4); Rule 3(c)(i)",
+      "match": "as eas(?:il)?y as|same (?:way|ease)",
+      "fix": "Say withdrawing is as easy as giving consent, and make it so in the product."
+    },
+    {
+      "rule": "Says how to withdraw",
+      "basis": "Rule 3(c)(i)",
+      "match": "withdraw[^.]{0,200}(?:settings|link|button|tap|click|email|@|form|page|portal|app\\b|website|call|\\+\\d)",
+      "fix": "Give the exact way to withdraw, e.g. 'Settings > Privacy > Withdraw consent' or an email address."
+    },
+    {
+      "rule": "Says what happens after withdrawal",
+      "basis": "Section 6(6)",
+      "match": "stop processing|cease (?:to )?process",
+      "fix": "Say you and your processors stop processing within a reasonable time after withdrawal."
+    }
+  ],
+  "PROCESSOR": [
+    {
+      "rule": "Processors act only on the company's behalf",
+      "basis": "Section 8(2)",
+      "match": "on (?:our|its|the company'?s) behalf|\\bour instructions",
+      "fix": "Say service providers process personal data only on your behalf and under your instructions."
+    },
+    {
+      "rule": "Processors are bound by a contract with security safeguards",
+      "basis": "Section 8(2); Rule 6(1)(f)",
+      "match": "contract|agreement",
+      "fix": "Say each service provider is bound by a written contract that requires security safeguards."
+    }
+  ],
+  "ACCURACY": [
+    {
+      "rule": "Commits to keeping data complete, accurate and consistent",
+      "basis": "Section 8(3)",
+      "match": "(?:complete|accurate)[^.]{0,30}(?:accurate|consistent)",
+      "fix": "Add: 'We take reasonable steps to keep your personal data complete, accurate and consistent.'"
+    }
+  ],
+  "SECURITY": [
+    {
+      "rule": "Names concrete security safeguards",
+      "basis": "Section 8(5); Rule 6(1)(a)-(b)",
+      "match": "encrypt|access control|mask|obfuscat|multi-factor|two-factor|\\bmfa\\b|\\b2fa\\b|firewall|\\btls\\b|\\bssl\\b|hash|penetration|vapt|virtual token",
+      "fix": "Name the safeguards you use, e.g. encryption at rest and in transit, access controls."
+    },
+    {
+      "rule": "Keeps access logs and monitors them",
+      "basis": "Rule 6(1)(c), (e)",
+      "match": "\\blogs?\\b[^.]{0,120}(?:monitor|review)|(?:monitor|review)[^.]{0,120}\\blogs?\\b",
+      "fix": "Say you keep logs of access to personal data, monitor them, and keep them for at least one year."
+    },
+    {
+      "rule": "Has backups for continued processing",
+      "basis": "Rule 6(1)(d)",
+      "match": "backup|back-up|back up",
+      "fix": "Say you keep backups so processing can continue if data is lost or compromised."
+    }
+  ],
+  "BREACH": [
+    {
+      "rule": "Covers personal data breaches",
+      "basis": "Section 8(6)",
+      "match": "breach",
+      "fix": "Add a section on what you do after a personal data breach."
+    },
+    {
+      "rule": "Tells the Data Protection Board, with a report within 72 hours",
+      "basis": "Section 8(6); Rule 7(2)",
+      "match": "data protection board[^.]{0,200}(?:72|seventy-two)|(?:72|seventy-two)[^.]{0,200}data protection board|data protection board",
+      "fix": "Commit to inform the Data Protection Board without delay and send a detailed report within 72 hours."
+    },
+    {
+      "rule": "Tells every affected person without delay",
+      "basis": "Section 8(6); Rule 7(1)",
+      "match": "affected|inform you|notify you",
+      "fix": "Commit to inform each affected person without delay, describing the breach, its likely consequences and what they can do."
+    }
+  ],
+  "ERASURE": [
+    {
+      "rule": "Erases data on withdrawal of consent or when the purpose ends",
+      "basis": "Section 8(7)",
+      "match": "(?:eras|delet)[^.]{0,200}(?:withdraw|no longer)|(?:withdraw|no longer)[^.]{0,200}(?:eras|delet)",
+      "fix": "Say you erase personal data when consent is withdrawn or the purpose is served, unless a law requires you to keep it."
+    },
+    {
+      "rule": "Gives a retention period",
+      "basis": "Section 8(7); Rule 8",
+      "check": "retention_period",
+      "fix": "Give a period for each kind of data, e.g. 'invoices 8 years (GST law), support chats 12 months'."
+    },
+    {
+      "rule": "No open-ended retention",
+      "basis": "Section 8(7)",
+      "absent": "\\b(?:forever|indefinitely|permanently|as long as (?:we|needed|necessary|required)|until deleted)\\b",
+      "fix": "Replace 'forever' or 'as long as necessary' with a period people can check."
+    },
+    {
+      "rule": "Keeps processing logs for at least one year",
+      "basis": "Rule 8(3)",
+      "match": "(?:at least|minimum (?:period )?of|not less than) (?:one|1) year",
+      "fix": "Say you keep personal data, traffic data and logs of processing for at least one year from the processing, then erase them."
+    }
+  ],
+  "CONTACT": [
+    {
+      "rule": "Names a Data Protection Officer or privacy contact",
+      "basis": "Section 8(9); Rule 9",
+      "match": "data protection officer|\\bdpo\\b(?![@.\\w])|privacy officer|grievance officer|contact person|designated person",
+      "fix": "Name your Data Protection Officer or the person who answers privacy questions."
+    },
+    {
+      "rule": "Gives an email address or phone number",
+      "basis": "Rule 9",
+      "check": "email_or_phone",
+      "fix": "Publish an email address or phone number for privacy questions."
+    }
+  ],
+  "GRIEVANCE": [
+    {
+      "rule": "Explains how to raise a grievance",
+      "basis": "Section 8(10); Section 13",
+      "match": "grievance|complain",
+      "fix": "Explain how to raise a grievance about personal data."
+    },
+    {
+      "rule": "Names who handles grievances",
+      "basis": "Section 8(10)",
+      "match": "grievance officer|data protection officer|\\bdpo\\b|privacy officer|@",
+      "fix": "Name the Grievance Officer and give their email address."
+    },
+    {
+      "rule": "Promises a response within 90 days",
+      "basis": "Rule 14(3)",
+      "check": "max_90_days",
+      "fix": "State a response time of at most 90 days, e.g. 'We will respond within 30 days.'"
+    },
+    {
+      "rule": "Says people can then go to the Board",
+      "basis": "Section 13(3)",
+      "match": "data protection board",
+      "fix": "Add: 'If you are not satisfied with our response, you can complain to the Data Protection Board of India.'"
+    }
+  ],
+  "CHILDREN": [
+    {
+      "rule": "Covers users under 18",
+      "basis": "Section 9; Section 2(f)",
+      "match": "(?:under|below)\\s+(?:the\\s+age\\s+of\\s+)?(?:18|eighteen)|\\bminors?\\b|\\bchild",
+      "fix": "Say how you treat anyone under 18."
+    },
+    {
+      "rule": "Requires verifiable consent of a parent or lawful guardian",
+      "basis": "Section 9(1); Rule 10",
+      "match": "verifiable[^.]{0,40}consent[^.]{0,80}(?:parent|guardian)|(?:parent|guardian)[^.]{0,80}verifiable",
+      "fix": "Say you process data of anyone under 18 only with the verifiable consent of a parent or lawful guardian, and how you verify it."
+    },
+    {
+      "rule": "No tracking or targeted ads aimed at children",
+      "basis": "Section 9(3)",
+      "match": "track|monitor|targeted advertis",
+      "fix": "Say you do not track or monitor children's behaviour or direct targeted advertising at them."
+    }
+  ],
+  "ACCESS": [
+    {
+      "rule": "A summary of the personal data held",
+      "basis": "Section 11(1)(a)",
+      "match": "summary",
+      "fix": "Say people can get a summary of their personal data and the processing done on it."
+    },
+    {
+      "rule": "Who the data was shared with",
+      "basis": "Section 11(1)(b)",
+      "match": "(?:shared|disclosed)[^.]{0,20}with|identit(?:y|ies) of",
+      "fix": "Say people can learn who you shared their data with."
+    },
+    {
+      "rule": "Correction and erasure",
+      "basis": "Section 12",
+      "match": "correct[^.]{0,80}(?:eras|delet)|(?:eras|delet)[^.]{0,80}correct",
+      "fix": "Say people can have their data corrected, completed, updated or erased."
+    },
+    {
+      "rule": "How to make a request",
+      "basis": "Rule 14(1)(a)",
+      "match": "@|request|write to|form|email|portal|settings|https?://|www\\.",
+      "fix": "Give the email, form or setting through which people make these requests."
+    },
+    {
+      "rule": "What details identify the requester",
+      "basis": "Rule 14(1)(b)",
+      "match": "identif|registered (?:email|mobile|phone)|username|account (?:id|number)",
+      "fix": "Say which details you need to identify the person, e.g. their registered email or mobile number."
+    }
+  ],
+  "NOMINATION": [
+    {
+      "rule": "Right to nominate someone",
+      "basis": "Section 14(1); Rule 14(4)",
+      "match": "nominat",
+      "fix": "Say people can nominate one or more individuals to exercise their rights."
+    },
+    {
+      "rule": "On death or incapacity",
+      "basis": "Section 14(1)",
+      "match": "death|\\bdie\\b|incapacit|unable",
+      "fix": "Say the nominee acts if the person dies or becomes incapable."
+    },
+    {
+      "rule": "Says how to nominate",
+      "basis": "Rule 14(4)",
+      "match": "nominat[^.]{0,200}(?:settings|form|email|@|writ|page|portal|request)",
+      "fix": "Give the form, setting or email through which people nominate."
+    }
+  ]
+}

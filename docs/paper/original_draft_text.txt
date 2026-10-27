@@ -1,0 +1,627 @@
+=====PAGE 1=====
+1
+DPDP Compass: Citation-Enforced Hybrid Retrieval and
+Guardrailed Agents for Auditing Privacy Policies against
+India's DPDP Act, 2023
+[Author names]
+[Department, Institution]
+[City, India]    [email]
+Abstract—[To be written last, once all results are in. 150-250
+words: problem, gap, system, evaluation, headline numbers,
+significance.]
+Index Terms—Compliance checking, data protection, DPDP
+Act, knowledge graphs, large language models, legal informatics,
+privacy policies, retrieval-augmented generation.
+I. INTRODUCTION
+India's Digital Personal Data Protection (DPDP) Act, 2023
+[1] places enforceable duties on every organisation that
+decides why and how personal data is processed, and gives
+individuals rights of access, correction, erasure, grievance
+redressal and nomination. Breach of the duty to take
+reasonable security safeguards can attract a penalty of up to
+Rs. 250 crore. For most organisations the first visible evidence
+of compliance is their privacy policy, and for most citizens the
+policy is the only description they will ever read of what
+happens to their data.
+Reading a policy against a statute is slow, expert work.
+Large language models (LLMs) appear to offer a shortcut, but
+in legal settings they are known to state rules that do not exist
+and to cite provisions that were never enacted [11], [12].
+Retrieval-augmented generation (RAG) [5] reduces this by
+supplying source text, yet retrieval tuned for open-domain text
+handles statutes poorly: fixed-size chunks cut sub-sections
+apart, embeddings blur the exact terms on which legal
+meaning turns, and nothing prevents the model from citing a
+section it was never shown.
+Prior work on automated analysis of privacy policies targets
+the GDPR and US practice [6]-[9]. We are not aware of a
+system or a benchmark built on the text of the DPDP Act. This
+paper makes four contributions.
+1) A clause-aware knowledge base of the Act: a statute
+chunker that preserves section, sub-section, marginal title and
+page, a three-layer structure of facts, obligations and
+principles, and a knowledge graph whose every edge carries
+the sentence that states it.
+2) A multi-agent audit pipeline with citations by
+construction: each of 14 obligations is judged from its own
+retrieved policy clauses, the legal citation is attached by the
+system rather than generated, and guardrails correct findings
+whose evidence cannot be verified.
+3) DPDP-QA, 198 questions in English, Hindi and Marathi
+with gold provisions and evidence phrases that make retrieval
+relevance independent of chunking, and DPDP-Synth, a
+controlled audit set with labels known by construction.
+4) An ablation study that isolates chunking, each retriever,
+fusion, re-ranking and guardrails, and reports a negative result:
+on this corpus the knowledge graph did not improve ranking.
+Section II reviews related work, Section III states the tasks,
+Section IV describes the system, Section V the experimental
+setup and Section VI the results. Sections VII and VIII give
+limitations and conclusions.
+II. BACKGROUND AND RELATED WORK
+A. The DPDP Act
+The Act [1] has 44 sections and a Schedule of penalties.
+Chapter II sets the obligations of a Data Fiduciary: notice
+(Section 5), consent and its withdrawal (Section 6), security
+safeguards, breach intimation, erasure and grievance redressal
+(Section 8), and children's data (Section 9). Chapter III gives
+the rights of the Data Principal (Sections 11-14). Many details
+are left to rules, which matters for evaluation: a question such
+as the number of hours within which a breach must be reported
+has no answer in the Act itself.
+B. NLP for Privacy Policies
+OPP-115 [6] annotated 115 website policies with
+data-practice categories and enabled supervised policy
+analysis. Polisis [7] built on it to classify policy segments and
+answer user questions. PrivacyQA [8] framed policy
+understanding as question answering with expert annotations.
+Amaral et al. [9] checked the completeness of policies against
+the GDPR. These works address the GDPR or US practice,
+and they classify policy text without tying each decision to a
+quoted provision of the governing law.
+C. Retrieval-Augmented Generation
+RAG [5] conditions generation on retrieved passages.
+Self-RAG [13] lets the model decide when to retrieve and
+critique its own output, and GraphRAG [14] builds a graph
+over the corpus to answer questions that need a global view.
+Our use of a graph is narrower: it stores typed legal relations
+with provenance, and we measure whether it helps ranking
+
+=====PAGE 2=====
+2
+Fig. 1. Architecture of DPDP Compass. Counts are for the knowledge base built from the DPDP Act, 2023.
+rather than assume that it does.
+D. Legal NLP and Hallucination
+LegalBench [10] measures legal reasoning in LLMs across
+many tasks. Dahl et al. [11] document frequent fabricated legal
+content in general-purpose models, and Magesh et al. [12] find
+that commercial legal research tools built on RAG still
+hallucinate. These findings motivate checking every cited
+provision against the corpus instead of trusting the generator.
+E. Retrieval Methods
+We combine BM25+ [3], a variant of BM25 [15] that
+lower-bounds 
+term-frequency 
+normalisation, 
+with
+Sentence-BERT style dense retrieval [4] using a MiniLM
+encoder [16], merge them with Reciprocal Rank Fusion [2],
+and re-rank with a cross-encoder [17]. RAGAS [18] proposed
+reference-free measures of answer faithfulness; we report
+related judge-based measures next to citation checks that need
+no judge.
+III. PROBLEM FORMULATION
+Let the legal corpus be a set of clauses K = {k1, ..., kn},
+where each clause carries its provision identifier (for example
+Section 8(6)) and page. We address two tasks.
+Task 1, grounded question answering. Given a question q,
+produce an answer a and a set of cited provisions C. Every
+provision in C must exist in K and must be among the clauses
+retrieved for q. If K does not answer q, the system should say
+so.
+Task 2, policy audit. Given a privacy policy P and a
+checklist O of 14 Data Fiduciary obligations, assign each
+obligation a status in {Satisfied, Partial, Missing, Not
+applicable}, with a verbatim quote from P for every status
+other than Missing and the sub-section of the Act that the
+obligation rests on.
+The compliance score is S = 100 (nsat + 0.5 npart) /
+napplicable.
+IV. SYSTEM DESIGN
+A. Overview
+The system has an offline pipeline that builds a hybrid legal
+knowledge base and an online multi-agent workflow that
+serves both tasks. All components run with embedded stores
+on one machine, or against Qdrant, Neo4j and PostgreSQL
+servers without code changes.
+Fig. 1 shows the architecture: data sources, the offline
+construction pipeline, the hybrid knowledge base, the agent
+engine, the two output modes and the evaluation layer.
+B. Clause-Aware Chunking of the Statute
+The Gazette PDF of the Act yields page headers, a masthead
+in a legacy font, and marginal notes that the extractor places
+after the page body. A generic splitter mixes these into the text
+and loses the provision structure. Our statute chunker (i)
+removes page headers and masthead noise and separates the
+marginal notes; (ii) detects sections by their running number,
+accepting a candidate only if it continues the sequence, and
+assigns each section its marginal note as title; (iii) splits each
+section into its numbered sub-sections, again requiring running
+
+=====PAGE 3=====
+3
+order so that a cross-reference at the start of a line is not
+mistaken for a new sub-section; (iv) packs consecutive
+sub-sections into chunks of at most 1,200 characters without
+cutting a sub-section, an over-long one being cut at its lettered
+clauses; (v) prefixes each chunk with its section number and
+title and stores section, sub-sections, clauses, chapter and
+starting page as metadata; and (vi) rebuilds the penalty
+Schedule, a three-column table that extraction scrambles, into
+one row per breach.
+On the DPDP Act this gives 82 chunks covering all 44
+sections, the long title and the Schedule, with a mean length of
+765 characters.
+C. Three-Layer Knowledge Structure
+Layer 1, facts: the 82 clause chunks and the 28 terms
+defined in Section 2. Layer 2, obligations: normative
+statements extracted with deontic patterns. A statement is
+recorded when a legal actor (Data Fiduciary, Data Principal,
+Consent Manager, Board and others) is the grammatical
+subject of shall, shall not, shall have the right or may; actors
+inside prepositional or relative phrases and definitional uses of
+shall are excluded. This yields 80 records: 43 duties, 5
+prohibitions, 5 rights and 27 powers. Layer 3, principles: each
+obligation is mapped by provision to one of 13 principles (Fig.
+2 shows one provision across the layers) such as consent,
+purpose limitation, storage limitation, security safeguards and
+accountability.
+In an automated check of a random sample of 60 deontic
+triplets by an LLM, which read each triplet against its source
+sentence, 50 were judged correct (precision 0.83, bootstrap
+95% CI 0.73-0.92). In eight of the ten errors the subject and
+modality were right but the object captured a leading aside
+instead of the action; two were passive constructions with the
+wrong subject. This check was not performed by human
+annotators.
+Fig. 2. The three layers for one provision, Section 8(5), and the penalty linked
+to it in the graph.
+D. Triplet Extraction and Knowledge Graph
+The same pass emits subject-predicate-object triplets, each
+with the chunk, provision, page and sentence that states it.
+Predicates come from a closed list: MUST, MUST_NOT,
+HAS_RIGHT 
+and 
+MAY 
+from 
+Layer 
+2;
+SERVES_PRINCIPLE; REFERS_TO for cross-references
+between provisions, excluding references to other Acts;
+DEFINED_IN; and PENALTY, which links a Schedule row to
+its provision. The graph for the Act has 354 relationships over
+287 nodes (Table I).
+TABLE I
+KNOWLEDGE BASE BUILT FROM THE DPDP ACT, 2023
+Item
+Count
+Clause chunks (Layer 1)
+82
+Obligation records (Layer 2)
+80
+Principles (Layer 3)
+13
+Graph nodes
+287
+Graph relationships
+354
+  MUST / MUST_NOT / HAS_RIGHT / MAY
+43 / 5 / 5 / 27
+  SERVES_PRINCIPLE
+78
+  REFERS_TO
+53
+  DEFINED_IN
+28
+  PENALTY
+7
+E. Hybrid Retrieval
+Four 
+retrievers 
+run 
+per 
+query 
+(Fig. 
+3). 
+Dense:
+all-MiniLM-L6-v2 embeddings in Qdrant with cosine
+similarity. Sparse: BM25+ [3] over stemmed tokens. Metadata
+lookup: when the query names a provision, the chunks of that
+provision are fetched exactly from the metadata store. Graph:
+relationships whose nodes the query mentions, and provisions
+cross-referenced by the leading candidates.
+Result lists are merged by weighted Reciprocal Rank
+Fusion, score(d) = sum over retrievers r of wr / (60 + rankr(d))
+[2], and the top 20 candidates are re-ranked by a cross-encoder
+(ms-marco-MiniLM-L-6-v2). The weights were chosen on the
+development split of DPDP-QA: wdense = wsparse = 1, wmetadata
+= 2 and wgraph = 0. Graph matches lowered ranking quality at
+every non-zero weight we tried (Section VI-B), so the
+deployed system does not use the graph for ranking. The graph
+is used where structure matters: linking obligations to their
+exemptions and provisions to their penalty.
+
+=====PAGE 4=====
+4
+Fig. 3. Hybrid retrieval. The dashed path is the graph retriever, whose fusion
+weight was set to 0 on the development split.
+F. Multi-Agent Workflow
+The workflow is a LangGraph state machine (Fig. 4). The
+orchestrator detects the language (English, Hindi or Marathi)
+and the intent and routes the request; a citizen question with no
+policy skips the audit agents. The retrieval agent runs hybrid
+retrieval over the Act for a question, translating non-English
+questions for search while the answer stays in the user's
+language. For an audit it issues one query per checklist
+obligation, over the Act and over the policy, which is chunked
+and indexed in memory for the duration of the audit.
+The obligation mapping agent grounds each checklist
+obligation in the knowledge base: its statutory text by exact
+lookup, its principle, and the exemption provisions linked to it
+in the graph. The compliance checking agent receives, per
+obligation, the statutory text, the tests for Satisfied and Partial,
+and the three policy clauses retrieved for it, and returns a status
+and a quote. The same tests are given to human annotators.
+The risk agent assigns severity from the penalty ceiling in the
+Schedule (up to Rs. 250 crore for Section 8(5), Rs. 200 crore
+for Sections 8(6) and 9, and Rs. 50 crore otherwise) and
+likelihood from the status; no penalty figure is generated by
+the model. If legal evidence is missing, the orchestrator re-runs
+retrieval with a reformulated query, up to three times.
+Fig. 4. Agent workflow. A citizen question with no policy takes the right-hand
+path; the dashed arrow is the retrieval feedback loop.
+G. Guardrails
+The legal citation of a finding is attached by the system
+from the knowledge base, so the model cannot invent it. The
+remaining risks are handled by checks that act on the output
+(Table II).
+TABLE II
+GUARDRAILS AND THE ACTION TAKEN ON FAILURE
+Check
+Action on failure
+Policy quote found word for word in the
+policy
+Satisfied becomes Partial; confidence
+capped at 0.5
+Partial finding has policy evidence
+Partial becomes Missing
+Cited provision exists in the Act and its
+excerpt is verbatim
+Citation removed
+Provisions cited in an answer are in the
+retrieved evidence
+One rewrite requested; result flagged
+Retrieved text contains instruction-like
+content
+Flagged; retrieved text is always
+passed as data
+Confidence within 0-1; output schema
+complete
+Clamped or flagged
+V. EXPERIMENTAL SETUP
+A. Corpus
+The Digital Personal Data Protection Act, 2023 (Gazette
+text, 21 pages). The DPDP Rules, 2025 are not included in the
+
+=====PAGE 5=====
+5
+experiments reported here.
+B. DPDP-QA
+We wrote 198 questions from the text of the Act: 178 in
+English, 12 in Hindi and 8 in Marathi, the latter two being
+translations of English items. They cover 42 of the 44 sections
+and the Schedule, and eleven types: definitions, obligations,
+rights, exemptions, procedure, penalties, scope, scenarios,
+provision lookups and two kinds of unanswerable question.
+Each answerable question has the gold provision, a reference
+answer and an evidence phrase copied from the Act. A
+retrieved chunk counts as relevant if it contains the phrase, so
+relevance does not depend on the chunking. A validator
+confirms that every phrase occurs in the Act and only inside
+the gold provision.
+Sixteen questions cannot be answered from the Act: ten ask
+for details the Act leaves to rules or does not contain, such as
+the number of hours for breach reporting, and six are out of
+domain. The set is split into development (60) and test (138);
+translations stay with their source. The development split is
+used only to choose the fusion weights.
+C. Audit Data
+DPDP-Synth is a controlled set of 40 synthetic policies of
+fictional companies. For each obligation the generator inserts a
+clause written for Satisfied or Partial or, for Missing, nothing
+or a hard negative that uses the topic's vocabulary without
+meeting the obligation. Labels are known by construction.
+Eight policies carry a prompt-injection sentence.
+We do not report results on real privacy policies: a gold
+standard for them requires independent labelling by annotators
+with legal training, which we leave to future work. The
+annotation guideline and agreement tooling for that study are
+released with the system.
+D. Systems Compared
+Retrieval: each retriever alone; dense plus sparse with
+score-weighted fusion and with RRF; then adding graph,
+metadata lookup and re-ranking. Chunking: clause-aware at
+1,200 and 600 characters, whole sections, and fixed windows
+of 1,200, 600 and 300 characters with 15% overlap, over the
+same cleaned text and the same retriever. Audit: a
+keyword-rule baseline; a single LLM prompt with the whole
+policy and the rubric; the multi-agent pipeline with and
+without guardrails. Question answering: the LLM without
+retrieval; dense-only RAG; hybrid RAG; the full system.
+E. Metrics
+Hit@k, Recall@k, MRR and nDCG@10 for retrieval, with
+bootstrap 95% confidence intervals and a paired bootstrap test.
+Accuracy, macro-F1, per-class F1 and Cohen's kappa for the
+audit, plus the error of the compliance score. For answers:
+citation precision and recall against gold provisions, the share
+of answers citing a provision that does not exist, the share
+citing outside the retrieved evidence, correctness and
+unsupported claims graded by an LLM judge against the
+reference answer, and abstention on unanswerable questions.
+Latency and tokens per item are recorded.
+F. Implementation
+Python 3.13, FastAPI and LangGraph; Qdrant in embedded
+mode and SQLite; openai/gpt-oss-120b served by Groq at
+temperature 
+0; 
+all-MiniLM-L6-v2 
+and
+ms-marco-MiniLM-L-6-v2 on CPU. Every run records its
+configuration, corpus statistics and dataset hash, and model
+responses are cached so that a run can be repeated exactly.
+VI. RESULTS
+A. Chunking
+Table III compares chunkers on the 114 English test
+questions with dense plus BM25+ retrieval fused by RRF and
+no re-ranking. Clause-aware chunks beat fixed windows of the
+same size limit (MRR 0.717 against 0.622, paired bootstrap p
+< 0.001). Whole sections rank equally well but place about 2.4
+times as much text in front of the model for the same evidence.
+TABLE III
+CHUNKING ABLATION (114 ENGLISH TEST QUESTIONS, HYBRID
+RETRIEVAL, NO RE-RANKING)
+Chunking
+Chunks Hit@1
+Hit@5
+MRR
+nDCG
+@10
+Chars in
+top 5
+Clause-aware, 1,200 (ours) 82
+0.614
+0.860
+0.717
+0.757
+4,219
+Clause-aware, 600
+145
+0.561
+0.789
+0.668
+0.710
+2,353
+Whole sections
+46
+0.614
+0.851
+0.719
+0.764
+10,095
+Fixed windows, 1,200
+59
+0.482
+0.798
+0.622
+0.671
+5,971
+Fixed windows, 600
+118
+0.465
+0.702
+0.572
+0.618
+2,996
+Fixed windows, 300
+236
+0.307
+0.596
+0.440
+0.489
+1,497
+B. Fusion Weights
+On the 56 answerable development questions, before
+re-ranking and with the metadata weight at 2, nDCG@10 fell
+as the graph weight rose: 0.710 at weight 0, 0.694 at 0.1, 0.629
+at 0.25, 0.603 at 0.5 and 0.613 at 1.0. We therefore set the
+graph weight to 0.
+C. Retrieval
+Table IV reports the ablation on the 126 answerable test
+questions, with Hindi and Marathi questions translated to
+English before search. BM25+ alone ranks the right clause
+first more often than dense retrieval alone (0.611 against
+0.468), which fits statutory text where questions reuse the
+Act's own terms. Fusing the two raises Hit@5 to 0.857. Giving
+the graph an equal vote lowers every metric. Exact provision
+lookup adds 0.064 to Hit@5, and cross-encoder re-ranking
+brings the full system to Hit@1 0.746 and nDCG@10 0.861,
+against 0.468 and 0.668 for dense retrieval (paired bootstrap p
+< 0.001 for both). Re-ranking on CPU costs about 1.3 s per
+query.
+TABLE IV
+RETRIEVAL ABLATION ON THE DPDP-QA TEST SPLIT (126
+QUESTIONS, TOP 10)
+System
+Hit@1
+Hit@5
+R@10
+MRR
+nDCG
+@10
+ms /
+query
+Dense (MiniLM)
+0.468
+0.817
+0.849
+0.612
+0.668
+11
+Sparse (BM25+)
+0.611
+0.802
+0.841
+0.688
+0.722
+0.3
+Graph
+0.206
+0.468
+0.556
+0.326
+0.377
+2
+
+=====PAGE 6=====
+6
+System
+Hit@1
+Hit@5
+R@10
+MRR
+nDCG
+@10
+ms /
+query
+Dense + sparse, weighted
+0.627
+0.857
+0.873
+0.725
+0.758
+12
+Dense + sparse, RRF
+0.611
+0.857
+0.861
+0.713
+0.748
+11
+ + graph, equal vote
+0.500
+0.738
+0.857
+0.604
+0.653
+15
+ + metadata lookup
+0.690
+0.921
+0.925
+0.790
+0.823
+12
+ + re-ranking (full)
+0.746
+0.944
+0.956
+0.832
+0.861
+1,291
+Dense + re-ranking
+0.683
+0.873
+0.889
+0.765
+0.791
+1,219
+D. Policy Audit
+Result pending. Table V: rule baseline, single prompt, and the
+pipeline with and without guardrails on DPDP-Synth (accuracy,
+macro-F1, kappa, per-class F1, score error, verified-quote rate,
+injection success, cost). The experiment is running.
+E. Question Answering and Citations
+Result pending. Table VI: closed-book LLM, dense RAG, hybrid
+RAG and the full system (correctness, citation precision and recall,
+fabricated-citation rate, unsupported claims, abstention, latency).
+The experiment has not run yet.
+F. Error Analysis and Case Study
+Not written yet. The most common retrieval and audit errors, with
+one side-by-side law-versus-policy example.
+VII. LIMITATIONS
+The corpus is one statute of 21 pages, and the Rules are not
+indexed. DPDP-QA was written by the authors from the Act
+and has not yet been reviewed by a lawyer. DPDP-Synth is
+synthetic, so conclusions about real policies need a
+human-labelled set. Obligation and triplet extraction is
+rule-based. The answer judge is an LLM of the same family as
+the system, so a sample must be graded by hand. The
+knowledge graph did not improve ranking on this corpus. The
+keyword baseline cannot read negation. The system gives
+guidance, not legal advice.
+VIII. CONCLUSION AND FUTURE WORK
+Not written yet. About a third of a page, written after the results:
+restate contributions and headline numbers in new words; future
+work (DPDP Rules, real-policy benchmark with legal annotators,
+user study).
+ACKNOWLEDGMENT
+[Thank the project guide and the institution here.] Generative
+AI tools were used in developing the software, in drafting this
+manuscript and in the automated check of extracted triplets
+reported in Section IV-C; the authors reviewed the content and
+are responsible for it.
+REFERENCES
+[1] The Digital Personal Data Protection Act, 2023, No. 22 of 2023, Gazette of
+India, Aug. 2023.
+[2] G. V. Cormack, C. L. A. Clarke, and S. Buettcher, "Reciprocal rank fusion
+outperforms Condorcet and individual rank learning methods," in Proc.
+SIGIR, 2009.
+[3] Y. Lv and C. Zhai, "Lower-bounding term frequency normalization," in
+Proc. CIKM, 2011.
+[4] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence embeddings
+using Siamese BERT-networks," in Proc. EMNLP-IJCNLP, 2019.
+[5] P. Lewis et al., "Retrieval-augmented generation for knowledge-intensive
+NLP tasks," in Proc. NeurIPS, 2020.
+[6] S. Wilson et al., "The creation and analysis of a website privacy policy
+corpus," in Proc. ACL, 2016.
+[7] H. Harkous et al., "Polisis: Automated analysis and presentation of privacy
+policies using deep learning," in Proc. USENIX Security, 2018.
+[8] A. Ravichander, A. W. Black, S. Wilson, T. Norton, and N. Sadeh,
+"Question answering for privacy policies: Combining computational and
+legal perspectives," in Proc. EMNLP-IJCNLP, 2019.
+[9] O. Amaral, S. Abualhaija, D. Torre, M. Sabetzadeh, and L. C. Briand,
+"AI-enabled automation for completeness checking of privacy policies,"
+IEEE Trans. Softw. Eng., 2022.
+[10] N. Guha et al., "LegalBench: A collaboratively built benchmark for
+measuring legal reasoning in large language models," in Proc. NeurIPS,
+2023.
+[11] M. Dahl, V. Magesh, M. Suzgun, and D. E. Ho, "Large legal fictions:
+Profiling legal hallucinations in large language models," J. Legal Anal.,
+2024.
+[12] V. Magesh et al., "Hallucination-free? Assessing the reliability of leading
+AI legal research tools," J. Empir. Legal Stud., 2025.
+[13] A. Asai, Z. Wu, Y. Wang, A. Sil, and H. Hajishirzi, "Self-RAG: Learning
+to retrieve, generate, and critique through self-reflection," in Proc. ICLR,
+2024.
+[14] D. Edge et al., "From local to global: A graph RAG approach to
+query-focused summarization," arXiv:2404.16130, 2024.
+[15] S. Robertson and H. Zaragoza, "The probabilistic relevance framework:
+BM25 and beyond," Found. Trends Inf. Retr., 2009.
+[16] W. Wang et al., "MiniLM: Deep self-attention distillation for
+task-agnostic compression of pre-trained transformers," in Proc. NeurIPS,
+2020.
+[17] R. Nogueira and K. Cho, "Passage re-ranking with BERT,"
+arXiv:1901.04085, 2019.
+[18] S. Es, J. James, L. Espinosa-Anke, and S. Schockaert, "RAGAS:
+Automated evaluation of retrieval augmented generation," in Proc. EACL
+(Demos), 2024.

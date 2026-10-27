@@ -1,0 +1,31 @@
+# Zepto Privacy Policy (Reference Tech Corpus — Quick Commerce & 10-Minute Grocery Delivery)
+Entity: KiranaKart Technologies Private Limited (Zepto / Zepto Cafe) | Sector: Quick Commerce Logistics | Last Updated: 2026
+
+1. Personal Information Collected
+Zepto collects user information to power instantaneous 10-minute grocery and daily essentials deliveries:
+- Contact & Delivery Profile: Customer name, primary contact mobile phone number, alternate contact, delivery addresses (Home, Work, Other), flat/building landmarks.
+- High-Accuracy Geolocation: Foreground GPS coordinates when opening the app to locate the nearest dark store micro-warehouse within a 2-kilometer radius.
+- Cart & Purchase History: Inventory items selected, basket size, time of order placement, payment method used, and discount voucher redemption.
+- Device Diagnostics: Device advertising ID, OS version, push notification registration tokens, and app crash logs.
+
+2. Grounds for Personal Data Processing
+- Hyperlocal Fulfillment: Directing pickers inside dark store micro-fulfilment centers and routing delivery riders to doorstep coordinates.
+- Inventory Forecasting: Predicting neighborhood SKU demand using aggregated, anonymized order patterns.
+- Customer Care & Missing Item Redressal: Resolving damaged, expired, or missing item refund requests via in-app chatbot and support agents.
+- Targeted Promotions: Sending notification alerts on lightning sales, price drops, and replenishment reminders.
+
+3. Sharing with External Parties
+- Delivery Executives: Order bag numbers, delivery address, and masked in-app calling tokens.
+- Payment Service Providers: Third-party RBI-licensed gateways (Razorpay, Juspay, Paytm, Cred Pay) for payment authorization.
+- Cloud & IT Infrastructure: Secure Indian cloud infrastructure with automated database backups.
+- Legal & Regulatory Compliance: Indian food safety (FSSAI) audits, legal metrology verification, and police requisitions.
+
+4. Data Retention and Erasure
+Personal delivery and order records are preserved for three (3) years to comply with consumer protection regulations and taxation laws. Users can permanently delete their profile and associated address book through App Settings -> Security -> Delete My Account. Deletion is executed within 30 days.
+
+5. Technical Safeguards
+We implement SSL/TLS 1.3 protocol encryption, tokenization of payment vectors, restricted bastion host access for internal developers, and periodic vulnerability assessments.
+
+6. Rights and Grievances
+Users have the statutory right to request a copy of collected data, correct address errors, and revoke marketing consent.
+- Grievance Redressal Officer: grievance@zepto.in | Corporate Office: Mumbai, Maharashtra, India.

@@ -1,0 +1,34 @@
+# Flipkart Privacy Policy (Reference Tech Corpus — E-Commerce Marketplace & Logistics)
+Entity: Flipkart Internet Private Limited | Sector: Multi-Category E-Commerce Marketplace | Last Updated: 2026
+
+1. Personal Information Collected
+Flipkart collects personal information during browsing, checkout, delivery, and seller interaction:
+- Account Registration: Name, telephone number, verified email address, alternate contact numbers, and delivery pin codes.
+- Financial & Payment Details: Tokenized debit/credit card identifiers, saved UPI IDs, Flipkart Pay Later credit limit status, and SuperCoins balance.
+- Shipping & Landmark Data: Detailed residential or commercial shipping addresses, recipient contact, and delivery instruction notes.
+- Browsing & Interaction Telemetry: Product search queries, wishlists, viewed items, clickstream logs, device hardware parameters, IP addresses, and cookie identifiers.
+- Customer Care Audio & Chat: Voice recordings of customer care calls and automated virtual assistant conversations.
+
+2. Purpose and Legal Basis for Processing
+- Order Fulfillment & Logistics: Routing parcels through Ekart logistics network, sortation centers, and delivery hubs.
+- Returns, Replacements & Warranty: Facilitating reverse logistics pickups and warranty validation with manufacturers.
+- Personalized Shopping Experience: Recommending relevant products, tailored category deals, and price drop notifications.
+- Loss Prevention & Marketplace Integrity: Detecting bot traffic, fraudulent reviews, unauthorized account takeovers, and payment fraud.
+- Legal & Tax Record-keeping: Compliance with the Consumer Protection (E-Commerce) Rules, GST invoice generation, and TDS filings.
+
+3. Sharing with Third Parties
+- Sellers & Brand Partners: Sharing delivery address, recipient name, and invoice info to enable shipping and tax invoice generation.
+- Logistics Partners (Ekart / Third-Party Couriers): Sharing delivery details and contact phone numbers for doorstep drops.
+- Payment Gateways & Banking Partners: Routing payment authorizations and executing refund reversals.
+- Group Entities: Synergistic operational sharing with Myntra, Cleartrip, and PhonePe under common privacy standards.
+- Regulatory & Law Enforcement: Complying with Section 79 of the IT Act, CERT-In cybersecurity directives, and tax authorities.
+
+4. Retention and Right to Erasure
+Transactional and order records are preserved for up to seven (7) years to satisfy Indian corporate, accounting, and tax auditing mandates. Non-transactional profile data, search queries, and marketing preferences may be deleted upon user request via Flipkart App -> Account -> Settings -> Delete Account.
+
+5. Data Security Standards
+Flipkart maintains industry-standard security safeguards including TLS 1.3 encryption, network firewalls, distributed denial-of-service (DDoS) mitigation, database encryption, and regular external security audits.
+
+6. Exercise of Data Principal Rights & Contact
+- Grievance Officer: grievance.officer@flipkart.com | Location: Bengaluru, Karnataka, India.
+- Escalation: Consumers may escalate unresolved grievances to the Data Protection Board of India under the DPDP Act 2023.

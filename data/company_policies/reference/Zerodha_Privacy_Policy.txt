@@ -1,0 +1,32 @@
+# Zerodha Privacy Policy (Reference Tech Corpus — Stock Brokerage & Wealth Management)
+Entity: Zerodha Broking Limited (Zerodha) | Sector: Discount Stock Broking & Capital Markets | Last Updated: 2026
+
+1. Statutory Collection of Personal & Financial Data
+As a SEBI-registered stockbroker and Depository Participant (CDSL), Zerodha is legally mandated to collect:
+- Comprehensive KYC Details: PAN card, Aadhaar offline e-KYC XML, passport / voter ID / driving license, photograph, signature, mother's/father's name, and marital status.
+- Financial & Tax Profiling: Annual income slab, net worth declaration, occupation, bank account numbers, cancelled cheque image, and CKYC identifier.
+- Trading & Demat Telemetry: Buy/sell orders on NSE/BSE/MCX, portfolio holding quantities, contract notes, ledger entries, and capital gains reports.
+- Device & Network Metadata: IP address, geographic location at time of order execution (mandatory SEBI risk surveillance), and browser fingerprint.
+
+2. Grounds for Processing
+- Execution of Stock Market Trades: Routing equity, derivative, commodity, and mutual fund orders to exchanges.
+- Demat Account Maintenance: Safekeeping securities in depository participant accounts with CDSL.
+- Regulatory Risk Management & AML: Anti-money laundering surveillance under SEBI circulars and PMLA guidelines.
+- Taxation & Audit Reporting: TDS computation, Form 10DB generation, and Annual Information Statement (AIS) reporting to the Income Tax Department.
+
+3. Sharing with Regulators, Exchanges & Depositories
+- Market Infrastructure Institutions: National Stock Exchange (NSE), Bombay Stock Exchange (BSE), Multi Commodity Exchange (MCX), and CDSL.
+- Clearing Corporations: NSE Clearing Limited (NCL) and Indian Clearing Corporation Limited (ICCL) for trade settlement.
+- Regulatory Bodies: SEBI, RBI, Enforcement Directorate, and Income Tax authorities under statutory mandate.
+- Payment Gateways: Processing fund deposits and instant bank withdrawals.
+
+4. Data Retention Mandates
+Under SEBI (Stock Brokers and Sub-Brokers) Regulations and PMLA Rule 3, all client registration documents, KYC proofs, voice call recordings of order placements, and transaction logs MUST be maintained for a mandatory minimum period of eight (8) years post-termination of client relationship.
+
+5. Security Architecture
+Zerodha maintains high-grade IT infrastructure with multi-tier firewalls, hardware security modules (HSMs), strict role-based access, and continuous 24/7 security operations center (SOC) monitoring.
+
+6. Principal Rights & Grievance Mechanism
+Clients may view, update KYC (subject to verification), and download full trading history.
+- Grievance Officer: complaints@zerodha.com | Location: Bengaluru, Karnataka, India.
+- Escalation to SEBI SCORES portal or the Data Protection Board of India.
