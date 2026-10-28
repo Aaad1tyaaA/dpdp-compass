@@ -13,7 +13,7 @@ Evidence-first: Legal obligation → legal evidence → policy evidence → comp
 - Frontend: React 18 + TypeScript + Vite + Tailwind — design inspired by Lumeo AI Assistant (Dribbble 25706500) adapted for legal-tech
 - Backend: Python FastAPI (async), LangGraph
 - KB: Qdrant, Postgres, Neo4j
-- LLM: provider-agnostic (OpenAI/Claude) with MOCK_LLM=true for demo
+- LLM: provider-agnostic (any OpenAI-compatible API, e.g. Groq) with MOCK_LLM=true for demo
 
 ## Quick start
 ```bash

@@ -23,7 +23,6 @@ class Settings(BaseSettings):
     mock_llm: bool = True
     llm_provider: str = "openai"
     openai_api_key: SecretStr | None = None
-    anthropic_api_key: SecretStr | None = None
     llm_temperature: float = 0.3
     llm_max_tokens: int = 4096
     llm_max_retries: int = 3
