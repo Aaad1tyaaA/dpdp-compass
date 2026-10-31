@@ -10,9 +10,9 @@ def _get_reranker():
     if _reranker_model is not None:
         return _reranker_model
     try:
-        from sentence_transformers import CrossEncoder
+        from app.compass.retrieval import reranker
         from app.config import settings
-        _reranker_model = CrossEncoder(settings.reranker_model)
+        _reranker_model = reranker(settings.reranker_model)
         logger.info("reranker loaded: %s", settings.reranker_model)
         return _reranker_model
     except Exception as e:

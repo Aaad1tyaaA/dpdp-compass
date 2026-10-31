@@ -51,16 +51,24 @@ def _load(factory, name: str):
     raise last
 
 
-@lru_cache(maxsize=2)
 def embedder(name: str = EMBEDDING_MODEL):
-    from sentence_transformers import SentenceTransformer
-    return _load(SentenceTransformer, name)
+    return _embedder(name)  # cache on the name itself: embedder() and embedder(EMBEDDING_MODEL) share one model
+
+
+def reranker(name: str = RERANK_MODEL):
+    return _reranker(name)
+
+
+@lru_cache(maxsize=2)
+def _embedder(name: str):
+    from .models import load_embedder
+    return _load(load_embedder, name)
 
 
 @lru_cache(maxsize=1)
-def reranker(name: str = RERANK_MODEL):
-    from sentence_transformers import CrossEncoder
-    return _load(CrossEncoder, name)
+def _reranker(name: str):
+    from .models import load_reranker
+    return _load(load_reranker, name)
 
 
 _PROV = [

@@ -60,6 +60,18 @@ def _db() -> sqlite3.Connection:
 _conn: sqlite3.Connection | None = None
 
 
+def ensure_demo_account() -> None:
+    """Create the DEMO_EMAIL / DEMO_PASSWORD account if it is missing, so a demo login survives a
+    host that wipes its disk on restart (free Hugging Face Spaces)."""
+    email, password = os.getenv("DEMO_EMAIL", "").strip().lower(), os.getenv("DEMO_PASSWORD", "")
+    if not email or len(password) < 8:
+        return
+    salt = secrets.token_bytes(16)
+    with _db():
+        _db().execute("INSERT OR IGNORE INTO users VALUES (?, ?, ?, ?, ?, ?)",
+                      (secrets.token_hex(16), email, "Demo User", _hash(password, salt), salt, time.time()))
+
+
 def _hash(password: str, salt: bytes) -> bytes:
     return hashlib.scrypt(password.encode(), salt=salt, n=2 ** 14, r=8, p=1, dklen=32)
 

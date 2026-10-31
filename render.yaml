@@ -1,4 +1,4 @@
-# Render blueprint for the API. The web app is on Vercel and forwards /api/* here (frontend/vercel.json).
+# Render blueprint for the API (free plan, 512 MB). The web app is on Vercel and forwards /api/* here (frontend/vercel.json).
 services:
   - type: web
     name: dpdp-compass-api
@@ -20,3 +20,7 @@ services:
         value: https://dpdp-compass.vercel.app
       - key: RATE_LIMIT_PER_MIN
         value: "30"
+      - key: DEMO_EMAIL        # demo login recreated on every start (the free disk is wiped on restart)
+        value: demo@dpdpcompass.in
+      - key: DEMO_PASSWORD
+        sync: false

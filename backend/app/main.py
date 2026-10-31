@@ -59,6 +59,7 @@ async def lifespan(app: FastAPI):
         logger.info("Knowledge base start-up task launched")
     except Exception as e:
         logger.warning("Knowledge base startup initialization error: %s", e)
+    auth.ensure_demo_account()
     yield
 
 

@@ -127,3 +127,13 @@ def test_cross_site_requests_with_a_session_are_refused():
     signup(c)
     assert c.put("/api/me/state/k", json={"value": 1}, headers={"origin": "https://evil.example"}).status_code == 403
     assert c.put("/api/me/state/k", json={"value": 1}, headers=ORIGIN).status_code == 200
+
+
+def test_demo_account_is_created_once_and_can_sign_in(monkeypatch):
+    from app import auth
+    email = f"demo-{uuid.uuid4().hex[:8]}@example.test"
+    monkeypatch.setenv("DEMO_EMAIL", email); monkeypatch.setenv("DEMO_PASSWORD", PASSWORD)
+    auth.ensure_demo_account(); auth.ensure_demo_account()  # second call must not fail or duplicate
+    c = new_client()
+    r = c.post("/api/auth/login", json={"email": email, "password": PASSWORD}, headers=ORIGIN)
+    assert r.status_code == 200, r.text

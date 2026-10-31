@@ -24,8 +24,8 @@ def _get_st_model(model_name: str):
     if model_name in _MODEL_CACHE:
         return _MODEL_CACHE[model_name]
     try:
-        from sentence_transformers import SentenceTransformer  # type: ignore
-        m = SentenceTransformer(model_name)
+        from app.compass.retrieval import embedder
+        m = embedder(model_name)
         _MODEL_CACHE[model_name] = m
         logger.info("embeddings model loaded %s", model_name)
         return m
