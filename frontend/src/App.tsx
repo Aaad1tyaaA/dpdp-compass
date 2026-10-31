@@ -59,7 +59,7 @@ function Page({ children }: { children: ReactNode }) {
 
 function AppRoutes() {
   const location = useLocation()
-  const { user, loading } = useAuth()
+  const { user, loading, expired } = useAuth()
   if (location.pathname === "/") {
     return <ErrorBoundary key="/"><Suspense fallback={null}><Landing /></Suspense></ErrorBoundary>
   }
@@ -68,7 +68,7 @@ function AppRoutes() {
   }
   // The app is for signed-in users: work is saved to the account. Remember where the person was going.
   if (loading) return <div className="grid min-h-screen place-items-center bg-background" aria-busy="true" aria-label="Loading"><Skeleton className="h-10 w-40" /></div>
-  if (!user) return <Navigate to={`/signin?next=${encodeURIComponent(location.pathname + location.search)}`} replace />
+  if (!user) return <Navigate to={`/signin?next=${encodeURIComponent(location.pathname + location.search)}${expired ? "&expired=1" : ""}`} replace />
   return (
     <AppShell>
       {/* keyed by path: an error on one page clears when you navigate away */}

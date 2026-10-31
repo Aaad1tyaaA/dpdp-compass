@@ -57,6 +57,9 @@ export function AuthPage({ mode }: { mode: "signin" | "signup" }) {
           <p className="mt-2 text-lg text-muted-foreground">
             {signup ? "Your audits, documents and questions are saved to it." : "Pick up where you left off."}
           </p>
+          {!signup && params.get("expired") && (
+            <p role="status" className="mt-4 rounded-lg border bg-muted px-4 py-3 text-lg">You were signed out because the server restarted. Please sign in again.</p>
+          )}
           <form onSubmit={submit} className="mt-8 space-y-5" noValidate>
             {signup && (
               <div className="space-y-1.5">
