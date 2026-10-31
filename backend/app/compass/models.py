@@ -64,18 +64,46 @@ def _torch_available() -> bool:
         return False
 
 
+_VECTORS = os.getenv("EMBED_CACHE")  # file of precomputed vectors, filled at image build (save_vectors)
+_embedders: list = []
+
+
 class _OnnxEmbedder:
     def __init__(self, name: str):
         _lean_onnx_sessions(); _register_int8()
         from fastembed import TextEmbedding
         self.model = TextEmbedding(_ONNX_NAMES.get(name, name), cache_dir=os.getenv("FASTEMBED_CACHE_PATH"), threads=_THREADS)
+        # The law and reference policies are the same text on every start: their vectors are computed once when
+        # the image is built and read back here, instead of ~3 minutes of embedding on a small server's CPU.
+        self.saved: dict[str, np.ndarray] = {}
+        if _VECTORS and os.path.exists(_VECTORS):
+            with np.load(_VECTORS) as f:
+                self.saved = dict(zip(f["keys"].tolist(), f["vectors"]))
+        self.recording = os.getenv("EMBED_CACHE_WRITE") == "1"
+        _embedders.append(self)
 
     def encode(self, texts, normalize_embeddings=True, show_progress_bar=False, **_):
-        # small batches: one big batch makes onnxruntime's memory pool grow past 1 GB and keep it
-        v = np.asarray(list(self.model.embed(list(texts), batch_size=8)), dtype=np.float32)
-        if normalize_embeddings and len(v):
-            v /= np.linalg.norm(v, axis=1, keepdims=True).clip(min=1e-12)
-        return v
+        import hashlib
+        texts = list(texts)
+        keys = [hashlib.sha1(t.encode("utf-8")).hexdigest() for t in texts]
+        todo = [i for i, k in enumerate(keys) if k not in self.saved]
+        fresh = {}
+        if todo:
+            # small batches: one big batch makes onnxruntime's memory pool grow past 1 GB and keep it
+            new = np.asarray(list(self.model.embed([texts[i] for i in todo], batch_size=8)), dtype=np.float32)
+            new /= np.linalg.norm(new, axis=1, keepdims=True).clip(min=1e-12)
+            fresh = {keys[i]: new[j] for j, i in enumerate(todo)}
+            if self.recording:
+                self.saved.update(fresh)
+        v = np.asarray([self.saved[k] if k in self.saved else fresh[k] for k in keys], dtype=np.float32).reshape(len(keys), -1)
+        return v  # always unit length (normalize_embeddings=False is never used in this app)
+
+
+def save_vectors() -> int:
+    """Write every vector recorded so far (EMBED_CACHE_WRITE=1) to EMBED_CACHE; returns how many."""
+    saved = {k: v for e in _embedders for k, v in e.saved.items()}
+    np.savez(_VECTORS, keys=np.array(list(saved)), vectors=np.asarray(list(saved.values()), dtype=np.float32))
+    return len(saved)
 
 
 class _OnnxReranker:
