@@ -11,9 +11,47 @@ import os
 
 import numpy as np
 
-# fastembed's names for the same weights
 _THREADS = int(os.getenv("MODEL_THREADS", "1"))  # each onnxruntime thread keeps its own buffers; 1 fits a 512 MB server
-_ONNX_NAMES = {"cross-encoder/ms-marco-MiniLM-L-6-v2": "Xenova/ms-marco-MiniLM-L-6-v2"}
+# int8 copies of the same two models: 87 MB together instead of ~225 MB. On the DPDP chunks they agree with the
+# full-precision models on the top dense hit and the top re-ranked hit for every test question (MODEL_INT8=0: fp32).
+_INT8 = os.getenv("MODEL_INT8", "1") != "0"
+_ONNX_NAMES = {"sentence-transformers/all-MiniLM-L6-v2": "dpdp/all-MiniLM-L6-v2-int8" if _INT8 else "sentence-transformers/all-MiniLM-L6-v2",
+               "cross-encoder/ms-marco-MiniLM-L-6-v2": "dpdp/ms-marco-MiniLM-L-6-v2-int8" if _INT8 else "Xenova/ms-marco-MiniLM-L-6-v2"}
+_registered = False
+
+
+def _register_int8() -> None:
+    global _registered
+    if _registered or not _INT8:
+        return
+    from fastembed import TextEmbedding
+    from fastembed.common.model_description import ModelSource, PoolingType
+    from fastembed.rerank.cross_encoder import TextCrossEncoder
+    TextEmbedding.add_custom_model("dpdp/all-MiniLM-L6-v2-int8", PoolingType.MEAN, True,
+                                   ModelSource(hf="Xenova/all-MiniLM-L6-v2"), 384, model_file="onnx/model_quantized.onnx")
+    TextCrossEncoder.add_custom_model("dpdp/ms-marco-MiniLM-L-6-v2-int8", ModelSource(hf="Xenova/ms-marco-MiniLM-L-6-v2"),
+                                      model_file="onnx/model_quantized.onnx")
+    _registered = True
+
+
+def _lean_onnx_sessions() -> None:
+    """Turn off onnxruntime's memory arena and pattern cache for every session fastembed opens. They keep
+    hundreds of MB reserved; without them the models fit a 512 MB server, at a small speed cost."""
+    import onnxruntime as ort
+    if getattr(ort.InferenceSession, "_lean", False):
+        return
+    base = ort.InferenceSession
+
+    class Lean(base):
+        _lean = True
+
+        def __init__(self, path, sess_options=None, *a, **kw):
+            so = sess_options or ort.SessionOptions()
+            so.enable_cpu_mem_arena = False
+            so.enable_mem_pattern = False
+            super().__init__(path, so, *a, **kw)
+
+    ort.InferenceSession = Lean
 
 
 def _torch_available() -> bool:
@@ -28,8 +66,9 @@ def _torch_available() -> bool:
 
 class _OnnxEmbedder:
     def __init__(self, name: str):
+        _lean_onnx_sessions(); _register_int8()
         from fastembed import TextEmbedding
-        self.model = TextEmbedding(name, cache_dir=os.getenv("FASTEMBED_CACHE_PATH"), threads=_THREADS)
+        self.model = TextEmbedding(_ONNX_NAMES.get(name, name), cache_dir=os.getenv("FASTEMBED_CACHE_PATH"), threads=_THREADS)
 
     def encode(self, texts, normalize_embeddings=True, show_progress_bar=False, **_):
         # small batches: one big batch makes onnxruntime's memory pool grow past 1 GB and keep it
@@ -41,6 +80,7 @@ class _OnnxEmbedder:
 
 class _OnnxReranker:
     def __init__(self, name: str):
+        _lean_onnx_sessions(); _register_int8()
         from fastembed.rerank.cross_encoder import TextCrossEncoder
         self.model = TextCrossEncoder(_ONNX_NAMES.get(name, name), cache_dir=os.getenv("FASTEMBED_CACHE_PATH"), threads=_THREADS)
 

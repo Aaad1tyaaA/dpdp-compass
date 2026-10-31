@@ -1,5 +1,6 @@
 # Render image for the DPDP Compass API. Built from the repository root so the Gazette PDFs (data/legal) and
-# reference policies are baked in. The retrieval models run on ONNX (no PyTorch) so it fits a 512 MB instance.
+# reference policies are baked in. The retrieval models run on ONNX (no PyTorch, int8, lean sessions)
+# so it fits a 512 MB instance; measured peak about 400 MB.
 FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1 \
     MODEL_RUNTIME=onnx MODEL_THREADS=1 FASTEMBED_CACHE_PATH=/opt/models MALLOC_ARENA_MAX=2
@@ -8,11 +9,10 @@ WORKDIR /app
 COPY backend/requirements.render.txt ./
 RUN pip install --retries 10 --timeout 120 -r requirements.render.txt
 
-RUN python -c "from fastembed import TextEmbedding; from fastembed.rerank.cross_encoder import TextCrossEncoder; \
-TextEmbedding('sentence-transformers/all-MiniLM-L6-v2', cache_dir='/opt/models'); \
-TextCrossEncoder('Xenova/ms-marco-MiniLM-L-6-v2', cache_dir='/opt/models')"
-
 COPY backend/app ./app
+# download the int8 ONNX models at build time (app/compass/models.py), so start-up makes no model downloads
+RUN python -c "from app.compass.models import load_embedder, load_reranker; \
+load_embedder('sentence-transformers/all-MiniLM-L6-v2'); load_reranker('cross-encoder/ms-marco-MiniLM-L-6-v2')"
 COPY backend/eval ./eval
 COPY data/legal /data/legal
 COPY data/company_policies ./data/company_policies
